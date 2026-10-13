@@ -53,6 +53,94 @@
   .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .wrap { max-width: var(--max); margin: 0 auto; }
 
+  /* ---------- v9: contato no topo ---------- */
+  .wa { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 12px 0 10px; border-radius: 999px; border: 1.5px solid #C6CEC2; background: #fff; color: var(--sc-ink); font: 700 12.5px/1 var(--sc-font-text); text-decoration: none; }
+  .wa svg { width: 17px; height: 17px; color: #128C4A; }
+  .wa:focus-visible { outline: 3px solid var(--sc-accent); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .wa:hover { border-color: var(--sc-accent); } }
+  @media (max-width: 640px) { .top .wa span { display: none; } .top .wa { width: 36px; padding: 0; justify-content: center; } }
+  @media (max-width: 420px) { .top .wa { display: none; } }
+  .wa--big { height: 54px; padding: 0 22px 0 18px; margin: 14px 0 12px; border: 0; background: var(--sc-accent); color: var(--sc-accent-ink); font-size: 16px; box-shadow: var(--e2); }
+  .wa--big svg { width: 22px; height: 22px; color: inherit; }
+
+  /* ---------- v9: a prova longa do Caso C ---------- */
+  .longa { margin-top: clamp(28px, 4vw, 48px); display: grid; gap: 22px; align-items: center; }
+  .longa__k { font: 700 12px/1.3 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-accent); margin-bottom: 8px; }
+  .longa h3 { font: 800 clamp(1.4rem, 1.1rem + 1.2vw, 2rem)/1.08 var(--sc-font-display); letter-spacing: -.025em; }
+  .longa .fine { margin-top: 10px; }
+  .longa__v { border-radius: 16px; overflow: hidden; background: #0B241A; box-shadow: var(--e3); }
+  .longa__v video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0B241A; }
+  @media (min-width: 900px) { .longa { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 4vw, 56px); } }
+
+  /* ---------- v9: o erro que nao aparece ---------- */
+  .br3 { list-style: none; padding: 0; margin: clamp(26px, 4vw, 44px) 0 0; display: grid; gap: 12px; counter-reset: none; }
+  .br3 li { position: relative; display: grid; gap: 8px; background: var(--sc-surface); border-radius: 18px; box-shadow: var(--e2); padding: 18px 18px 16px; }
+  .br3__n { position: absolute; right: 16px; top: 12px; font: 800 2.4rem/1 var(--sc-font-display); color: var(--line); }
+  .br3 li > b { font: 800 1.15rem/1.15 var(--sc-font-display); letter-spacing: -.02em; padding-right: 36px; }
+  .br3__f { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; background: var(--bar); font: 500 13.5px/1.3 var(--sc-font-text); }
+  .br3__f i { font-style: normal; color: var(--sc-ink-soft); }
+  .br3__f em { font-style: normal; font-weight: 700; white-space: nowrap; }
+  .br3__f .vazio { min-width: 96px; text-align: center; padding: 4px 8px; border: 1.5px dashed #9AA99F; border-radius: 6px; color: #8A988F; font-weight: 600; }
+  .br3__f .deduz { color: var(--erro); }
+  .br3__f .impresso { padding: 3px 8px; border-radius: 6px; background: rgba(184, 50, 42, .1); color: var(--erro); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .br3 small { font: 500 13px/1.45 var(--sc-font-text); color: var(--sc-ink-soft); }
+  @media (min-width: 860px) { .br3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+  .branco .mine { margin-top: clamp(22px, 3vw, 34px); }
+  .branco .fine { margin-top: 10px; }
+
+  /* ---------- v9: prova social ---------- */
+  .logos { list-style: none; padding: 0; margin: clamp(26px, 4vw, 44px) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .logos li { display: grid; place-items: center; height: 96px; padding: 14px 18px; border-radius: 16px; background: #fff; box-shadow: var(--e1); }
+  .logos img { max-width: 100%; max-height: 62px; width: auto; height: auto; object-fit: contain; }
+  @media (min-width: 640px) { .logos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 1000px) { .logos { grid-template-columns: repeat(7, minmax(0, 1fr)); } .logos li { height: 104px; } }
+  .depos { margin-top: clamp(22px, 3vw, 36px); display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px var(--gut) 18px; margin-inline: calc(var(--gut) * -1); scrollbar-width: thin; }
+  .depo { flex: 0 0 min(84vw, 340px); scroll-snap-align: center; display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 22px 22px 18px; border-radius: 20px; background: var(--sc-surface); box-shadow: var(--e2); }
+  .depo blockquote { flex: 1; margin: 0; font: 500 15.5px/1.6 var(--sc-font-text); color: var(--sc-ink); }
+  .depo blockquote::before { content: "\201C"; display: block; height: 30px; font: 800 52px/1 var(--sc-font-display); color: var(--sc-accent); }
+  .depo figcaption { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); font: 700 14px/1.2 var(--sc-font-text); }
+  .depo figcaption img { width: 56px; height: 36px; object-fit: contain; }
+  @media (min-width: 1000px) { .depos { display: block; columns: 3; column-gap: 16px; overflow: visible; padding: 0; margin-inline: 0; } .depo { break-inside: avoid; margin: 0 0 16px; } }
+  .depos__nota { margin-top: 6px; }
+
+  /* ---------- v9: o filme em 16:9 no computador ---------- */
+  .filme__frame.is-wide { width: min(100%, 1100px, calc((100svh - 230px) * 16 / 9)); }
+  .filme__frame.is-wide video { aspect-ratio: 16 / 9; }
+
+  /* ---------- v9: antes de reservar ---------- */
+  .antes__grid { margin-top: clamp(26px, 4vw, 44px); display: grid; gap: 16px; align-items: start; }
+  @media (min-width: 960px) { .antes__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 20px; } }
+  .faq { display: grid; gap: 10px; }
+  .faq__q { background: var(--sc-surface); border-radius: 16px; box-shadow: var(--e1); }
+  .faq__q summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 18px 20px; cursor: pointer; font: 700 clamp(1rem, .96rem + .2vw, 1.12rem)/1.3 var(--sc-font-text); }
+  .faq__q summary::-webkit-details-marker { display: none; }
+  .faq__q summary i { position: relative; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--bar); }
+  .faq__q summary i::before, .faq__q summary i::after { content: ""; position: absolute; left: 8px; right: 8px; top: 13px; height: 2px; border-radius: 2px; background: var(--sc-ink); transition: transform 200ms var(--sc-ease-out); }
+  .faq__q summary i::after { transform: rotate(90deg); }
+  .faq__q[open] summary i::after { transform: rotate(0deg); }
+  .faq__q summary:focus-visible { outline: 3px solid var(--sc-accent); outline-offset: 2px; border-radius: 16px; }
+  .faq__q p { padding: 0 20px 20px; font: 400 15px/1.6 var(--sc-font-text); color: var(--sc-ink-soft); max-width: 68ch; }
+  .antes__col { display: grid; gap: 14px; }
+  .req { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 10px; }
+  .req li { display: grid; gap: 2px; padding-left: 28px; position: relative; font: 400 14.5px/1.45 var(--sc-font-text); }
+  .req li::before { content: ""; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--sc-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23F3FFF7' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5'/%3E%3C/svg%3E") center / 12px no-repeat; }
+  .req li span { color: var(--sc-ink-soft); font-size: 13.5px; }
+  .fala a:not(.wa) { color: var(--sc-accent); }
+
+  /* ---------- v9: garantia, formulario e rodape ---------- */
+  .garantia { display: flex; gap: 16px; align-items: flex-start; margin-top: 22px; padding: 16px 18px; border: 1px solid rgba(234, 244, 238, .2); border-radius: 16px; }
+  .garantia__n { flex: none; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--mint); color: #062014; font: 800 26px/1 var(--sc-font-display); }
+  .garantia__n small { display: block; margin-top: -10px; font: 700 10px/1 var(--sc-font-text); letter-spacing: .08em; text-transform: uppercase; }
+  .garantia p { font: 400 14.5px/1.55 var(--sc-font-text); color: var(--sc-ink-soft); }
+  .garantia b { color: var(--sc-ink); }
+  .pills.pills--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lgpd { margin-top: 12px; font: 500 12.5px/1.5 var(--sc-font-text); color: var(--sc-ink-soft); }
+  .lgpd a { color: var(--sc-accent); }
+  .foot { display: block; }
+  .foot p { margin-top: 10px; max-width: 110ch; }
+  .foot__links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 6px; }
+  .foot__links a { color: var(--sc-ink); font-weight: 600; text-decoration: underline; text-underline-offset: .25em; }
+
   /* ---------- topo ---------- */
   .top { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px var(--gut) 6px; }
   .brand { display: flex; align-items: center; gap: 10px; font: 800 18px/1 var(--sc-font-display); letter-spacing: -.02em; color: inherit; text-decoration: none; }
@@ -551,7 +639,7 @@
 
 <header class="top">
   <a class="brand" href="#bancada" aria-label="Ponto Cálculo, início"><img src="assets/logo.png" width="32" height="32" alt="">Ponto Cálculo</a>
-  <div class="top__r"><button class="snd" type="button" data-snd aria-pressed="false" aria-label="Ligar som"><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Som</span></button><a class="top__cta" href="#garantir">Garantir minha vaga</a></div>
+  <div class="top__r"><button class="snd" type="button" data-snd aria-pressed="false" aria-label="Ligar som"><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Som</span></button><a class="wa" href="https://wa.me/551332244264?text=Ol%C3%A1%21%20Vim%20pela%20p%C3%A1gina%20do%20lote%20de%20abertura%20do%20Ponto%20C%C3%A1lculo." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>WhatsApp</span></a><a class="top__cta" href="#garantir">Garantir minha vaga</a></div>
 </header>
 
 <main>
@@ -564,7 +652,7 @@
         <h1 class="pl" id="tHero" data-sc-cue="0 0.26 0"><span class="k">Liquidação de sentença</span>Você ainda digita <em>144 campos</em>, um por um?<span class="s">6 verbas, 24 meses, cada campo no <span class="nw">PJe-Calc</span>. À mão.</span></h1>
         <p class="pl" data-sc-cue="0.26 0.54">Cento e quarenta e quatro <em>lançamentos.</em><span class="s">Às 11 da noite, com a planilha aberta e o PDF do lado. Um dígito trocado e a outra parte impugna.</span></p>
         <p class="pl" data-sc-cue="0.56 0.82"><span class="k">Com o Ponto Cálculo</span>O robô lança os 144 <em>por você.</em><span class="s">No <span class="nw">PJe-Calc</span>, o programa oficial da Justiça do Trabalho. Campo por campo, lendo o PDF dos autos.</span></p>
-        <p class="pl" data-sc-cue="0.84 1 0.05 0">Você confere e assina. <em>Só isso.</em><span class="s">Pronto para protocolar, com 40 conferências contra o que você aprovou.</span></p>
+        <p class="pl" data-sc-cue="0.84 1 0.05 0">Você confere e assina. <em>Só isso.</em><span class="s">Pronto para você conferir e protocolar, com 40 conferências contra o que você aprovou.</span></p>
       </div>
       <div class="prologo__count" id="pCount" aria-hidden="true">144<small>campos à mão</small></div>
       <div class="prologo__brand" data-sc-cue="0.9 1 0.04 0"><b>Ponto Cálculo</b><span>o robô que digita no <span class="nw">PJe-Calc</span> por você</span></div>
@@ -589,7 +677,7 @@
       </div>
 
       <div class="sheet" id="sheet">
-        <div class="sheet__bar"><span><b class="nw">PJe-Calc</b> · exemplo fictício</span><span>6 verbas × 24 meses</span></div>
+        <div class="sheet__bar"><span><b class="nw">PJe-Calc</b> · Exemplo 1, fictício</span><span>6 verbas × 24 meses</span></div>
         <div class="focus" aria-hidden="true"><span class="focus__comp" id="fComp">05/2019</span><span class="focus__verba" id="fVerba">Salário base</span><span class="focus__val" id="fVal"></span></div>
         <div class="grid" id="grid" role="img" aria-label="Grade com 144 campos do PJe-Calc. Nenhum lançado."></div>
         <div class="sheet__foot">
@@ -627,6 +715,17 @@
         <span class="rec__prog" aria-hidden="true"><i id="recProg"></i></span>
         <button class="rec__play" id="recPlay" type="button" hidden>Ver a gravação</button>
       </figure>
+      <div class="longa" data-sc-in>
+        <div class="longa__txt">
+          <p class="longa__k">Caso C · 3 min 48 s · sem corte</p>
+          <h3>Quer ver um cálculo inteiro?</h3>
+          <p class="lead">O Caso C, o mais difícil dos três casos-modelo que acompanham a licença, calculado dentro do <span class="nw">PJe-Calc</span> Cidadão do começo ao fim. O que você vê é o robô digitando; não há corte no meio do cálculo.</p>
+          <p class="fine">Caso real em estrutura, fictício em conteúdo. Gravado na tela, em velocidade real.</p>
+        </div>
+        <div class="longa__v">
+          <video id="casoC" controls playsinline preload="none" poster="assets/demo-caso-c.jpg" aria-label="Demonstração do Caso C, 3 minutos e 48 segundos, sem corte"><source src="assets/demo-caso-c.mp4" type="video/mp4"></video>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -659,13 +758,13 @@
       </div>
       <div class="ckgrid" id="ckgrid">
         <div class="sent" aria-hidden="true">
-          <div class="sent__lbl">Sentença · exemplo fictício</div>
+          <div class="sent__lbl">Caso C · sentença fictícia, 50 competências</div>
           <div class="sent__ttl">DISPOSITIVO</div>
           <p>Ante o exposto, julgo procedentes em parte os pedidos para condenar a reclamada a pagar ao reclamante: <mark id="m0">adicional de periculosidade de 30% sobre o salário base</mark>, por todo o período contratual, apurado mês a mês conforme os recibos; <mark id="m1">com reflexos em 13º salário</mark>; <mark id="m2">em férias acrescidas de 1/3</mark>; <mark id="m3">e no FGTS, com a multa de 40%</mark>. Juros e correção monetária na forma da lei. Custas pela reclamada.</p>
           <p class="sent__note" id="m4"><b>Sobre o DSR, a sentença não diz nada.</b> Por isso ele não inventa: pergunta a você.</p>
         </div>
         <ul class="cl" id="cl">
-          <li data-at="0.1">Adicional de periculosidade 30%<small>50 competências · série salarial lida dos recibos</small><span class="ok"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 3.8L16 6"/></svg></span></li>
+          <li data-at="0.1">Adicional de periculosidade 30%<small>Caso C · 50 competências · série salarial lida dos recibos</small><span class="ok"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 3.8L16 6"/></svg></span></li>
           <li data-at="0.3">Reflexo em 13º salário<small>sobre o adicional, nas bases certas</small><span class="ok"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 3.8L16 6"/></svg></span></li>
           <li data-at="0.48">Reflexo em férias + 1/3<small>sobre o adicional, nas bases certas</small><span class="ok"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 3.8L16 6"/></svg></span></li>
           <li data-at="0.64">FGTS com a multa<small>configurado no <span class="nw">PJe-Calc</span></small><span class="ok"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 3.8L16 6"/></svg></span></li>
@@ -703,6 +802,23 @@
           </div>
           <p class="fine">Depois, 40 conferências confrontam a planilha com o que você aprovou. Reprovou, o sistema não apresenta como pronto. Quem confere e assina o cálculo é você.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- BANCADA 5b · o erro que nao aparece -->
+  <section class="bench branco" id="branco" data-sc-act="flow" aria-labelledby="tBranco">
+    <div class="wrap">
+      <div data-sc-in data-sc-stagger="60">
+        <h2 id="tBranco">E tem o erro <em>que não aparece.</em></h2>
+        <p class="lead">Um campo em branco e o <span class="nw">PJe-Calc</span> preenche por dedução, e imprime como se fosse valor apurado. Liquida, exporta, e está errado.</p>
+      </div>
+      <ol class="br3" data-sc-in data-sc-stagger="90">
+        <li><span class="br3__n">1</span><b>Um campo fica em branco</b><span class="br3__f"><i>Salário base · 07/2019</i><em class="vazio">em branco</em></span><small>No meio de 144, ninguém vê.</small></li>
+        <li><span class="br3__n">2</span><b>O programa deduz</b><span class="br3__f"><i>Salário base · 07/2019</i><em class="deduz">R$ 2.700,00</em></span><small>Preenchido pelo próprio <span class="nw">PJe-Calc</span>, sem aviso.</small></li>
+        <li><span class="br3__n">3</span><b>Sai impresso como apurado</b><span class="br3__f"><i>Resumo de liquidação</i><em class="impresso">valor apurado</em></span><small>E a conta inteira parte daí.</small></li>
+      </ol>
+      <p class="mine">O Ponto Cálculo lança cada campo a partir dos autos. <em>O que os autos não trazem vira pergunta para você,</em> antes de calcular.</p>
+      <p class="fine">Exemplo fictício, para ilustrar o comportamento do programa.</p>
     </div>
   </section>
 
@@ -786,15 +902,29 @@
     </div>
   </section>
 
+  <!-- PROVA SOCIAL · quem ja usa -->
+  <section class="bench quem" id="quem" data-sc-act="flow" aria-labelledby="tQuem">
+    <div class="wrap">
+      <div data-sc-in data-sc-stagger="60">
+        <h2 id="tQuem">Quem já usa, <em>todo dia.</em></h2>
+        <p class="lead">As empresas do Grupo ABA Infraestrutura e Logística já produzem seus cálculos trabalhistas com o Ponto Cálculo. O Grupo atua em atividades marítimas, terminais portuários, logística, química e combustíveis, em Santos, Rio, Salvador e Fortaleza. E escritórios de advocacia trabalhista, que é onde o Ponto Cálculo nasceu.</p>
+      </div>
+      <ul class="logos" aria-label="Empresas e escritórios que usam o Ponto Cálculo"><li><img src="assets/logo-aba.webp" width="360" height="150" alt="Grupo ABA Infraestrutura e Logística" loading="lazy"></li><li><img src="assets/logo-eudmarco.webp" width="198" height="150" alt="Eudmarco" loading="lazy"></li><li><img src="assets/logo-adonai.webp" width="169" height="150" alt="Adonai Química" loading="lazy"></li><li><img src="assets/logo-concais.webp" width="280" height="150" alt="Concais" loading="lazy"></li><li><img src="assets/logo-piermaua.webp" width="360" height="107" alt="Píer Mauá" loading="lazy"></li><li><img src="assets/logo-cbaa.webp" width="175" height="150" alt="CB&amp;AA Cunha, Batista &amp; Advogados Associados" loading="lazy"></li><li><img src="assets/logo-camargo.webp" width="228" height="150" alt="Organizações Camargo" loading="lazy"></li></ul>
+      <div class="depos" role="list" aria-label="Depoimentos"><figure class="depo" role="listitem"><blockquote>Entrávamos em conciliação com uma estimativa e torcia. O número do outro lado parecia sempre mais firme que o nosso, não porque fosse, mas porque vinha com memória de cálculo. Hoje a discussão é sobre critério, e não sobre de onde saiu o número.</blockquote><figcaption><img src="assets/logo-aba.webp" width="360" height="150" alt="" loading="lazy"><b>Grupo ABA</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>Passivo trabalhista, aqui, era sempre uma resposta que chegava tarde. Hoje o número chega antes da reunião.</blockquote><figcaption><img src="assets/logo-eudmarco.webp" width="198" height="150" alt="" loading="lazy"><b>Eudmarco</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>O que atrapalhava não era o valor: era o retrabalho. Agora a premissa fica escrita, e quem confere não precisa refazer.</blockquote><figcaption><img src="assets/logo-adonai.webp" width="169" height="150" alt="" loading="lazy"><b>Adonai Química</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>Provisão de passivo era um número redondo que alguém arredondava para cima por precaução. Agora o valor vem apurado do programa oficial.</blockquote><figcaption><img src="assets/logo-concais.webp" width="280" height="150" alt="" loading="lazy"><b>Concais</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>O incômodo nunca foi perder: era não saber de quanto antes de sentar à mesa. Hoje o número que levamos é o mesmo que o juízo confere.</blockquote><figcaption><img src="assets/logo-piermaua.webp" width="360" height="107" alt="" loading="lazy"><b>Píer Mauá</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>O cálculo que decide o acordo é montado por quem tem menos tempo de casa e conferido pelo sócio às onze da noite. Hoje o número chega pronto e a conferência virou ler as premissas, não recalcular a conta.</blockquote><figcaption><img src="assets/logo-cbaa.webp" width="175" height="150" alt="" loading="lazy"><b>CB&amp;AA</b></figcaption></figure><figure class="depo" role="listitem"><blockquote>Liquidação era a parte do trabalho que a gente adiava, pelas três horas digitando no PJe-Calc que ninguém paga. Hoje a equipe monta e o responsável confere as premissas e assina.</blockquote><figcaption><img src="assets/logo-camargo.webp" width="228" height="150" alt="" loading="lazy"><b>Organizações Camargo</b></figcaption></figure></div>
+      <p class="fine depos__nota">Depoimentos institucionais, publicados com autorização de uso de marca assinada pelas empresas.</p>
+    </div>
+  </section>
+
   <!-- BANCADA 8 · o filme toca sozinho -->
   <section class="bench filme" id="filme" data-sc-act="flow" aria-labelledby="tFilme">
     <div class="wrap">
       <div class="filme__head" data-sc-in data-sc-stagger="60">
-        <h2 id="tFilme">Em 16 segundos, <em>o resumo.</em></h2>
+        <h2 id="tFilme">Em dois minutos, <em>o método inteiro.</em></h2>
+        <p class="lead">Toca sozinho quando chega aqui. Pule quando quiser.</p>
       </div>
       <div class="filme__stage">
         <div class="filme__frame" id="filmeFrame">
-          <video id="filmeVid" playsinline preload="metadata" poster="assets/campanha-15s-poster.jpg" aria-label="Filme da campanha do Ponto Cálculo, 16 segundos"></video>
+          <video id="filmeVid" playsinline preload="none" poster="assets/filme-916.jpg" aria-label="Apresentação do Ponto Cálculo, 2 minutos e 23 segundos"></video>
           <div class="filme__ui">
             <button class="key key--ghost" id="filmeSom" type="button"><span class="key__base"></span><span class="key__cap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Ligar som</span></span></button>
             <button class="key key--ghost" id="filmePular" type="button"><span class="key__base"></span><span class="key__cap"><span>Pular</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></span></button>
@@ -812,6 +942,40 @@
     </div>
   </section>
 
+  <!-- ANTES DE RESERVAR · perguntas, requisitos, de quem e cada sistema, contato -->
+  <section class="bench antes" id="duvidas" data-sc-act="flow" aria-labelledby="tDuv">
+    <div class="wrap">
+      <div data-sc-in data-sc-stagger="60">
+        <h2 id="tDuv">Antes de reservar, <em>as perguntas de sempre.</em></h2>
+        <p class="lead">As que todo advogado faz primeiro. Respondidas sem letra miúda.</p>
+      </div>
+      <div class="antes__grid">
+        <div class="faq"><details class="faq__q"><summary>Meus processos vão para algum servidor de vocês?<i aria-hidden="true"></i></summary><p>Não. A leitura roda inteiramente na sua máquina. Não há envio, não há servidor intermediário, não há o que vazar. A internet serve só para ativar a licença e receber atualização.</p></details><details class="faq__q"><summary>Funciona para qualquer cálculo trabalhista?<i aria-hidden="true"></i></summary><p>Não, e isso é proposital. Funciona para as classes de cálculo homologadas na bateria de testes: verbas mês a mês; horas extras, adicional noturno e intervalo por cartão de ponto; reflexos em 13º, férias, aviso e RSR; férias; faltas; FGTS com multa de 40%; multas dos arts. 467 e 477; seguro-desemprego; honorários; custas; correção e juros pela ADC 58 e pela Lei 14.905; contribuição social; indenização de estabilidade; liquidação provisória. Fora dessas classes, o robô para e avisa. Matéria cível, previdenciária e execução fiscal estão fora.</p></details><details class="faq__q"><summary>O cálculo é confiável?<i aria-hidden="true"></i></summary><p>O cálculo é feito dentro do <span class="nw">PJe-Calc</span> oficial da Justiça do Trabalho, não num motor paralelo. E o sistema confere o que produziu: 40 verificações contra o que você aprovou. Quem assina é você: a ferramenta reduz o risco, não o elimina.</p></details><details class="faq__q"><summary>E se o PJe-Calc for atualizado pelo tribunal?<i aria-hidden="true"></i></summary><p>A atualização de compatibilidade está inclusa enquanto a licença estiver vigente. Chegando uma versão que ainda não testamos, o Ponto Cálculo para de lançar e avisa na tela, em vez de digitar contra telas que podem ter mudado.</p></details><details class="faq__q"><summary>E se eu não quiser instalar nada?<i aria-hidden="true"></i></summary><p>A equipe Ponto Cálculo faz o cálculo para você: você envia o PDF do processo e recebe o relatório em PDF e o arquivo .PJC.</p></details></div>
+        <div class="antes__col">
+          <div class="scard">
+            <h3>O que você precisa ter</h3>
+            <ul class="req">
+              <li><b>Windows 10 ou 11</b></li>
+              <li><b>Google Chrome</b><span>é por ele que o robô opera o <span class="nw">PJe-Calc</span></span></li>
+              <li><b><span class="nw">PJe-Calc</span> Cidadão 2.16.0</b><span>programa público e gratuito do TRT da 8ª Região, baixado da fonte oficial</span></li>
+              <li><b>Autos em PDF</b><span>baixados do PJe, com camada de texto</span></li>
+            </ul>
+          </div>
+          <div class="scard">
+            <h3>Dois programas na sua mesa. <em style="font-style: normal; color: var(--sc-accent)">Só um é nosso.</em></h3>
+            <p class="lead">O <b><span class="nw">PJe-Calc</span> Cidadão</b> é do TRT da 8ª Região, desenvolvido a pedido do CSJT: você instala e mantém, da fonte oficial. Se ele não abrir ou sair do ar, nenhum cálculo se perde: reabre e roda de novo. O <b>Ponto Cálculo</b> é nosso: opera o <span class="nw">PJe-Calc</span> na sua máquina, lê os autos e monta o cálculo. É por ele que respondemos.</p>
+          </div>
+          <div class="scard fala">
+            <h3>Ficou com dúvida?</h3>
+            <p class="lead">Fale com a gente pelo WhatsApp, em dias úteis, das 9h às 18h.</p>
+            <a class="wa wa--big" href="https://wa.me/551332244264?text=Ol%C3%A1%21%20Vim%20pela%20p%C3%A1gina%20do%20lote%20de%20abertura%20do%20Ponto%20C%C3%A1lculo." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg><span>(13) 3224-4264</span></a>
+            <p class="fine">E-mail: <a href="mailto:pontocalculo1@gmail.com">pontocalculo1@gmail.com</a> · Instagram: <a href="https://www.instagram.com/pontocalculotrabalhista/" target="_blank" rel="noopener">@pontocalculotrabalhista</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FECHO · a vaga, com o que o visitante fez -->
   <section class="bench close" id="garantir" data-sc-act="flow" aria-labelledby="tVaga">
     <div class="wrap">
@@ -819,6 +983,10 @@
         <img class="close__seal" src="assets/logo.png" width="72" height="72" alt="">
         <h2 id="tVaga">Lote de abertura: <em>50 licenças.</em></h2>
         <p class="lead">Entre na lista e receba primeiro o convite, com a condição de lançamento: o menor preço que este software vai ter. É só uma reserva, nada é cobrado agora.</p>
+        <div class="garantia">
+          <span class="garantia__n">15<small>dias</small></span>
+          <p><b>15 dias para testar.</b> Instale, rode os três casos-modelo e um processo seu. Se em quinze dias, contados da ativação, você não tiver economizado mais tempo do que pagou, devolvemos o valor integral, sem discussão e sem formulário.</p>
+        </div>
         <div class="receipt" id="receipt" hidden>
           <p class="receipt__t">No seu teste</p>
           <ul id="receiptList"></ul>
@@ -835,10 +1003,10 @@
           <fieldset class="fld" id="fsCalc">
             <legend>Quantos cálculos você faz por mês?</legend>
             <div class="pills">
-              <label><input type="radio" name="calculos_mes" value="1-3" required><span>1 a 3</span></label>
+              <label><input type="radio" name="calculos_mes" value="1-2" required><span>1 a 2</span></label>
+              <label><input type="radio" name="calculos_mes" value="3"><span>3</span></label>
               <label><input type="radio" name="calculos_mes" value="4-10"><span>4 a 10</span></label>
-              <label><input type="radio" name="calculos_mes" value="11-30"><span>11 a 30</span></label>
-              <label><input type="radio" name="calculos_mes" value="30+"><span>Mais de 30</span></label>
+              <label><input type="radio" name="calculos_mes" value="10+"><span>Mais de 10</span></label>
             </div>
             <p class="prefill" id="prefill" hidden></p>
             <span class="err" id="eCalc"></span>
@@ -851,11 +1019,21 @@
               <option>Perito(a) ou calculista</option>
               <option>Empresa ou RH</option>
             </select><span class="err" id="ePerfil"></span></div>
+          <fieldset class="fld" id="fsEsocial">
+            <legend>Depois do cálculo, você precisa declarar ao eSocial?</legend>
+            <div class="pills pills--3">
+              <label><input type="radio" name="esocial" value="sim" required><span>Sim</span></label>
+              <label><input type="radio" name="esocial" value="nao"><span>Não</span></label>
+              <label><input type="radio" name="esocial" value="nao-sei"><span>Não sei</span></label>
+            </div>
+            <span class="err" id="eEso"></span>
+          </fieldset>
           <label class="consent"><input type="checkbox" id="fLgpd" name="lgpd" required><span>Aceito receber contato do Ponto Cálculo sobre o lançamento, por e-mail e WhatsApp. Posso pedir a exclusão dos meus dados quando quiser.</span></label>
           <span class="err" id="eLgpd"></span>
           <input type="hidden" name="origem" id="fOrigem">
           <button class="submit" type="submit" id="fBtn"><span class="key__base"></span><span class="key__cap">Garantir minha vaga</span></button>
           <p class="note" id="fNote" aria-live="polite"></p>
+          <p class="lgpd">Seus dados são tratados pela CB Recovery Brasil Assessoria Ltda (CNPJ 13.216.041/0001-61) apenas para avisar você sobre o lançamento do Ponto Cálculo. Não pedimos documento nem processo. Você pode pedir a exclusão a qualquer momento. Leia a <a href="privacidade.html">Política de Privacidade</a>.</p>
         </form>
         <div class="done" role="status" aria-live="polite">
           <img src="assets/logo.png" width="116" height="116" alt="">
@@ -865,8 +1043,16 @@
       </div>
     </div>
     <footer class="foot">
-      <span><b>Material publicitário.</b> Ponto Cálculo é uma marca da CB Recovery Brasil Assessoria.</span>
-      <span>Quem confere e assina o cálculo é você.</span>
+      <div class="foot__links">
+        <a href="https://wa.me/551332244264?text=Ol%C3%A1%21%20Vim%20pela%20p%C3%A1gina%20do%20lote%20de%20abertura%20do%20Ponto%20C%C3%A1lculo." target="_blank" rel="noopener">WhatsApp (13) 3224-4264</a>
+        <a href="mailto:pontocalculo1@gmail.com">pontocalculo1@gmail.com</a>
+        <a href="https://www.instagram.com/pontocalculotrabalhista/" target="_blank" rel="noopener">@pontocalculotrabalhista</a>
+        <a href="termos.html">Termos de uso</a>
+        <a href="privacidade.html">Política de privacidade</a>
+      </div>
+      <p><b>Material publicitário.</b> Ponto Cálculo é uma ferramenta de automação. Não presta consultoria jurídica, não garante resultado processual e não substitui a responsabilidade técnica do profissional que aprova e assina o cálculo.</p>
+      <p>O <span class="nw">PJe-Calc</span> Cidadão é software público desenvolvido pelo Tribunal Regional do Trabalho da 8ª Região a pedido do Conselho Superior da Justiça do Trabalho, instalado e mantido pelo próprio usuário. Indisponibilidade, alteração ou defeito desse sistema não constitui falha do Ponto Cálculo. A responsabilidade do Ponto Cálculo limita-se ao valor da licença contratada no período.</p>
+      <p>Ponto Cálculo é uma marca da CB Recovery Brasil Assessoria Ltda, CNPJ 13.216.041/0001-61. Imagens e valores de exemplo são fictícios.</p>
     </footer>
   </section>
 </main>
@@ -885,7 +1071,7 @@
   // Envio do formulario. Sem endpoint = modo de teste (fica no navegador e a tela avisa).
   // endpoint = https://<projeto>.supabase.co/rest/v1/leads e anonKey = chave publica (sb_publishable_...). Nunca a chave de servico.
   window.PC_LEADS = { endpoint: 'https://yytvemczthqwlihiyelb.supabase.co/rest/v1/leads', anonKey: 'sb_publishable_9NwTO1V4Apj-fgxSNqIYUg_yEr0RGec' };
-  window.PC_FILM = { src: 'assets/campanha-15s.mp4' };
+  window.PC_FILM = { src: 'assets/filme-916.mp4', wide: 'assets/filme-169.mp4' };
 </script>
 <script>
 (function () {
@@ -1374,7 +1560,7 @@
   var mN = $('#mN'), mRange = $('#mRange'), mOut = $('#mOut'), blocksEl = $('#blocks'), mes = $('#mes'), n = 8, mode = 'mao', BL = [], built = reduce ? 1 : 0;
   for (i = 0; i < 160; i++) { var b = document.createElement('span'); b.className = 'blk'; b.style.setProperty('--i', i); b.style.setProperty('--r', ((rnd() - .5) * 50).toFixed(1) + 'deg'); blocksEl.appendChild(b); BL.push(b); }
   function label(v) { return v >= 40 ? '40 ou mais' : String(v); }
-  function band(v) { return v <= 3 ? '1-3' : v <= 10 ? '4-10' : v <= 30 ? '11-30' : '30+'; }
+  function band(v) { return v <= 2 ? '1-2' : v === 3 ? '3' : v <= 10 ? '4-10' : '10+'; }
   function hm(min) { if (min < 60) return min + ' minutos'; var h = Math.floor(min / 60), mm = min % 60; return h + (h === 1 ? ' hora' : ' horas') + (mm ? ' e ' + mm + ' min' : ''); }
   function mesPaint() {
     mN.textContent = n >= 40 ? '40+' : n; mRange.value = n;
@@ -1445,7 +1631,7 @@
   }
   var q = new URLSearchParams(location.search), utm = {};
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { if (q.get(k)) utm[k] = q.get(k); });
-  $('#fOrigem').value = JSON.stringify({ utm: utm, ref: document.referrer || '', pagina: 'v6' });
+  $('#fOrigem').value = JSON.stringify({ utm: utm, ref: document.referrer || '', pagina: 'v9' });
   zap.addEventListener('input', function () {
     var d = zap.value.replace(/\D/g, '').slice(0, 11), o = d;
     if (d.length > 2) o = '(' + d.slice(0, 2) + ') ' + d.slice(2);
@@ -1460,6 +1646,7 @@
     ok = setErr(zap, 'eZap', zap.value.replace(/\D/g, '').length >= 10 ? '' : 'Informe o WhatsApp com DDD.') && ok;
     ok = setErr(null, 'eCalc', form.querySelector('input[name="calculos_mes"]:checked') ? '' : 'Escolha uma faixa.') && ok;
     ok = setErr(perfil, 'ePerfil', perfil.value ? '' : 'Escolha uma opção.') && ok;
+    ok = setErr(null, 'eEso', form.querySelector('input[name="esocial"]:checked') ? '' : 'Escolha uma opção.') && ok;
     ok = setErr($('#fLgpd'), 'eLgpd', $('#fLgpd').checked ? '' : 'É preciso aceitar para reservar.') && ok;
     return ok;
   }
@@ -1469,7 +1656,7 @@
     var data = {
       nome: $('#fNome').value.trim(), email: $('#fEmail').value.trim().toLowerCase(), whatsapp: zap.value.replace(/\D/g, ''),
       calculos_mes: form.querySelector('input[name="calculos_mes"]:checked').value, perfil: $('#fPerfil').value,
-      lgpd: true, origem: JSON.parse($('#fOrigem').value || '{}')
+      lgpd: true, origem: Object.assign(JSON.parse($('#fOrigem').value || '{}'), { esocial: form.querySelector('input[name="esocial"]:checked').value })
     };
     var cfg = window.PC_LEADS || {};
     btn.disabled = true; note.textContent = 'Enviando...';
@@ -1491,7 +1678,8 @@
   // ---------- o filme: toca sozinho ao chegar na tela, com Pular e Ligar som ----------
   (function () {
     var sec = $('#filme'), v = $('#filmeVid'), som = $('#filmeSom'), pular = $('#filmePular'), play = $('#filmePlay'), end = $('#filmeEnd'), bar = $('#filmeBar');
-    var src = (window.PC_FILM || {}).src || 'assets/campanha-15s.mp4', loaded = false, ended = false, on = false;
+    var F = window.PC_FILM || {}, wide = !!F.wide && matchMedia('(min-width: 861px)').matches, src = wide ? F.wide : F.src, loaded = false, ended = false, on = false;
+    if (wide) { $('#filmeFrame').classList.add('is-wide'); v.poster = 'assets/filme-169.jpg'; }
     function load() { if (!loaded) { loaded = true; v.src = src; } }
     function somPaint() { som.querySelector('.key__cap > span').textContent = v.muted ? 'Ligar som' : 'Sem som'; }
     function tocar(unmuted) {
