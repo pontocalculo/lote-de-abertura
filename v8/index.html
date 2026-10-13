@@ -125,7 +125,7 @@
   /* ---------- 2 · a cordilheira de autos, com o nome subindo por tras ---------- */
   .monte { position: relative; background: var(--snow); color: var(--deep); overflow: clip; }
   .monte [data-sc-stage] { background: linear-gradient(180deg, #E4ECE6 0%, var(--snow) 62%); }
-  .monte__name { position: absolute; z-index: 1; left: 0; right: 0; top: var(--name-top, 33%); text-align: center; font: 400 var(--name-size, 15.6vw)/.8 var(--sc-font-display); letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; padding-top: .16em; color: transparent; background: linear-gradient(180deg, #0E4E2E 0%, #1F8A57 52%, #7CC79F 100%); -webkit-background-clip: text; background-clip: text; transform: translateY(calc(-50% + (1 - var(--sc-p, 0)) * var(--rise, 200%))); }
+  .monte__name { position: absolute; z-index: 1; left: 0; right: 0; top: var(--name-top, 38%); text-align: center; font: 400 var(--name-size, min(15.6vw, 30vh))/.8 var(--sc-font-display); letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; padding-top: .16em; color: transparent; background: linear-gradient(180deg, #0E4E2E 0%, #1F8A57 52%, #7CC79F 100%); -webkit-background-clip: text; background-clip: text; transform: translateY(calc(-50% + (1 - var(--sc-p, 0)) * var(--rise, 200%))); }
   .monte__name span { display: inline; }
   .monte__ridge { position: absolute; z-index: 2; left: 50%; bottom: var(--ridge-b, -7%); width: var(--ridge-w, 100vw); max-width: 2400px; transform: translate(-50%, calc((1 - var(--sc-p, 0)) * 5%)); }
   .monte__ridge img { display: block; width: 100%; height: auto; }
@@ -135,7 +135,7 @@
   .monte__cap .lab { margin-top: 12px; }
   .monte__top { position: absolute; z-index: 4; left: var(--gut); right: var(--gut); top: clamp(80px, 12vh, 120px); display: flex; justify-content: space-between; gap: 12px; }
   @media (max-width: 860px) {
-    .monte__name { --name-size: 25vw; --name-top: 36%; --rise: 130%; white-space: normal; line-height: .86; }
+    .monte__name { --name-size: 25vw; --name-top: 36%; --rise: 130%; white-space: normal; line-height: 1.02; }
     .monte__name span { display: block; }
     .monte__ridge { --ridge-w: 210vw; --ridge-b: 9%; }
     .monte__top .lab:last-child { display: none; }
@@ -274,6 +274,8 @@
   .foot__ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   @media (max-width: 860px) { .st .v9btn { margin-left: 0; margin-top: 10px; } }
   @media (min-width: 861px) { .st--dtop { top: clamp(100px, 14vh, 150px); bottom: auto; } .stats { top: clamp(112px, 16vh, 166px); bottom: auto; } }
+  /* no computador a cordilheira para logo abaixo do nome: os picos so tocam a base das letras */
+  @media (min-width: 861px) { .monte__ridge { top: max(47%, calc(100% - 43.4vw)); bottom: auto; } }
 </style>
 </head>
 <body>
