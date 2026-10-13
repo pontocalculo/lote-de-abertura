@@ -68,7 +68,14 @@
   .longa__k { font: 700 12px/1.3 var(--sc-font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-accent); margin-bottom: 8px; }
   .longa h3 { font: 800 clamp(1.4rem, 1.1rem + 1.2vw, 2rem)/1.08 var(--sc-font-display); letter-spacing: -.025em; }
   .longa .fine { margin-top: 10px; }
-  .longa__v { border-radius: 16px; overflow: hidden; background: #0B241A; box-shadow: var(--e3); }
+  .longa__v { position: relative; border-radius: 16px; overflow: hidden; background: #0B241A; box-shadow: var(--e3); }
+  .vel { position: absolute; z-index: 2; top: 12px; right: 12px; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px; background: rgba(6, 22, 15, .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .vel span { padding: 0 8px 0 10px; font: 600 11px/1 var(--sc-font-text); letter-spacing: .12em; text-transform: uppercase; color: rgba(243, 255, 247, .75); }
+  .vel button { min-width: 40px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: #F3FFF7; font: 700 13px/1 var(--sc-font-text); cursor: pointer; touch-action: manipulation; }
+  .vel button[aria-pressed="true"] { background: var(--mint); color: #062014; }
+  .vel button:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) { .vel button:not([aria-pressed="true"]):hover { background: rgba(243, 255, 247, .14); } }
+  @media (max-width: 480px) { .vel span { display: none; } .vel button { min-width: 36px; height: 30px; padding: 0 8px; } }
   .longa__v video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0B241A; }
   @media (min-width: 900px) { .longa { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 4vw, 56px); } }
 
@@ -723,6 +730,7 @@
           <p class="fine">Caso real em estrutura, fictício em conteúdo. Gravado na tela, em velocidade real.</p>
         </div>
         <div class="longa__v">
+          <div class="vel" role="group" aria-label="Velocidade do vídeo"><span>Velocidade</span><button type="button" data-vel="1" aria-pressed="true">1x</button><button type="button" data-vel="2" aria-pressed="false">2x</button><button type="button" data-vel="3" aria-pressed="false">3x</button><button type="button" data-vel="4" aria-pressed="false">4x</button></div>
           <video id="casoC" controls playsinline preload="none" poster="assets/demo-caso-c.jpg" aria-label="Demonstração do Caso C, 3 minutos e 48 segundos, sem corte"><source src="assets/demo-caso-c.mp4" type="video/mp4"></video>
         </div>
       </div>
@@ -1685,6 +1693,11 @@
   if (casoC) {
     casoC.addEventListener('play', function () { pausaOutros(casoC); syncSom(); });
     ['pause', 'ended', 'volumechange'].forEach(function (ev) { casoC.addEventListener(ev, syncSom); });
+    // velocidade 1x a 4x (vale tambem depois de recarregar o video)
+    var velBtns = Array.prototype.slice.call(document.querySelectorAll('.vel button'));
+    function setVel(v) { casoC.defaultPlaybackRate = v; casoC.playbackRate = v; velBtns.forEach(function (b) { b.setAttribute('aria-pressed', +b.dataset.vel === v ? 'true' : 'false'); }); }
+    velBtns.forEach(function (b) { b.addEventListener('click', function () { setVel(+b.dataset.vel); }); });
+    casoC.addEventListener('loadedmetadata', function () { var on = velBtns.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; })[0]; if (on) casoC.playbackRate = +on.dataset.vel; });
   }
 
   // ---------- o filme: toca sozinho ao chegar na tela, com Pular e Ligar som ----------
