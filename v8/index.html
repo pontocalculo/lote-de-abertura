@@ -162,7 +162,37 @@
     .tri__item + .tri__item { border-left: 0; border-top: 1px solid rgba(247, 250, 246, .5); }
   }
 
-  /* ---------- 4 · o lote e o formulario ---------- */
+
+  /* ---------- 4 · o filme: a apresentacao toca sozinha antes do formulario ---------- */
+  .filme { background: var(--deep); color: var(--snow); padding: clamp(70px, 9vw, 120px) var(--gut) clamp(56px, 7vw, 90px); }
+  .filme__head { max-width: 1180px; margin: 0 auto clamp(26px, 3.4vw, 40px); display: grid; grid-template-columns: 1fr auto; gap: 18px 40px; align-items: end; }
+  .filme__head .lab { color: rgba(247, 250, 246, .72); margin-bottom: 14px; }
+  .filme__head .lab b { color: var(--mint); }
+  .filme__head .big em { color: var(--mint); }
+  .filme__head .tag { max-width: 24ch; text-align: right; color: rgba(247, 250, 246, .8); }
+  .filme__frame { position: relative; margin: 0 auto; width: min(100%, 1180px, calc((100svh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #06160F; box-shadow: 0 40px 90px -40px rgba(0, 0, 0, .7); }
+  .filme__frame.is-vert { aspect-ratio: 9 / 16; width: min(100%, calc((100svh - 140px) * 9 / 16)); }
+  .filme__frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: #06160F; cursor: pointer; }
+  .filme__ui { position: absolute; z-index: 2; left: 14px; right: 14px; top: 14px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
+  .fbtn { pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(247, 250, 246, .6); background: rgba(6, 22, 15, .5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: var(--snow); font: 600 11px/1 var(--sc-font-text); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+  .fbtn svg { width: 15px; height: 15px; }
+  .fbtn:hover { background: var(--mint); border-color: var(--mint); color: var(--sc-accent-ink); }
+  .fbtn:focus-visible, .filme__play:focus-visible, .filme__end a:focus-visible { outline: 3px solid var(--mint); outline-offset: 2px; }
+  .filme__bar { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(247, 250, 246, .16); }
+  .filme__bar i { display: block; height: 100%; background: var(--mint); transform-origin: 0 50%; transform: scaleX(0); }
+  .filme__play { position: absolute; z-index: 3; inset: 0; display: grid; place-items: center; border: 0; background: rgba(6, 22, 15, .35); cursor: pointer; }
+  .filme__play[hidden], .filme__end[hidden] { display: none; }
+  .filme__play span { display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 28px; border-radius: 999px; background: var(--mint); color: var(--sc-accent-ink); font: 700 12px/1 var(--sc-font-text); letter-spacing: .2em; text-transform: uppercase; }
+  .filme__play svg { width: 18px; height: 18px; }
+  .filme__end { position: absolute; z-index: 3; inset: 0; display: grid; place-items: center; align-content: center; gap: 16px; padding: 24px; background: rgba(6, 22, 15, .8); text-align: center; }
+  .filme__end b { font: 400 clamp(2rem, 1.3rem + 2.6vw, 3.6rem)/.92 var(--sc-font-display); text-transform: uppercase; }
+  .filme__end a { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 28px; border-radius: 999px; background: var(--mint); color: var(--sc-accent-ink); font: 700 12px/1 var(--sc-font-text); letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+  .filme__end a:hover { background: #fff; }
+  .filme__end .again { background: none; border: 0; color: rgba(247, 250, 246, .75); font: 600 13px/1 var(--sc-font-text); text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
+  .filme__cap { max-width: 1180px; margin: 16px auto 0; font: 500 12.5px/1.5 var(--sc-font-text); color: rgba(247, 250, 246, .6); }
+  @media (max-width: 860px) { .filme__head { grid-template-columns: 1fr; } .filme__head .tag { text-align: left; } .filme__cap { text-align: center; } .fbtn { height: 38px; padding: 0 13px; letter-spacing: .14em; } }
+
+  /* ---------- 5 · o lote e o formulario ---------- */
   .lote { background: var(--snow); padding: clamp(80px, 11vw, 150px) var(--gut) clamp(80px, 10vw, 140px); }
   .lote__grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr minmax(340px, 500px); gap: clamp(32px, 5vw, 88px); align-items: start; }
   .lote .tag { margin-top: 20px; max-width: 30ch; color: var(--sc-ink-soft); }
@@ -227,7 +257,7 @@
 
 <header class="bar" id="bar">
   <a class="brand" href="#mergulho" aria-label="Ponto Cálculo, início"><img src="logo.png" width="30" height="30" alt=""><span><b>Ponto Cálculo</b><small>O robô do <span class="nw">PJe-Calc</span></small></span></a>
-  <nav class="nav" aria-label="Seções"><a href="#mergulho">O mergulho</a><a href="#monte">Os autos</a><a href="#tri">O método</a><a href="#lote">O lote</a></nav>
+  <nav class="nav" aria-label="Seções"><a href="#mergulho">O mergulho</a><a href="#monte">Os autos</a><a href="#tri">O método</a><a href="#filme">O filme</a><a href="#lote">O lote</a></nav>
   <div class="r">
     <button class="snd" type="button" data-snd aria-pressed="false" aria-label="Ligar música"><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
     <a class="pill" href="#lote"><span class="pill__l">Garantir minha vaga</span><span class="pill__s">Minha vaga</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
@@ -308,7 +338,30 @@
     </div>
   </section>
 
-  <!-- 4 · O LOTE -->
+  <!-- 4 · O FILME: a apresentacao v8 toca sozinha antes do formulario -->
+  <section class="filme" id="filme" data-sc-act="flow" aria-labelledby="tFilme">
+    <div class="filme__head" data-sc-in data-sc-stagger="60">
+      <div><p class="lab"><b>O filme</b> · 2min23</p><h2 class="big big--md" id="tFilme">Em dois minutos, <em>o método inteiro.</em></h2></div>
+      <p class="tag">Toca sozinho quando chega aqui. Pule quando quiser.</p>
+    </div>
+    <div class="filme__frame" id="filmeFrame">
+      <video id="filmeVid" playsinline preload="none" poster="filme-169.jpg" aria-label="Apresentação do Ponto Cálculo, 2 minutos e 23 segundos"></video>
+      <div class="filme__ui">
+        <button class="fbtn" id="filmeSom" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg><span>Ligar som</span></button>
+        <button class="fbtn" id="filmePular" type="button"><span>Pular</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></button>
+      </div>
+      <button class="filme__play" id="filmePlay" type="button" hidden><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>Assistir</span></button>
+      <div class="filme__end" id="filmeEnd" hidden>
+        <b>Lote de abertura: 50 licenças.</b>
+        <a href="#lote">Garantir minha vaga <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+        <button class="again" id="filmeAgain" type="button">Ver de novo</button>
+      </div>
+      <div class="filme__bar" aria-hidden="true"><i id="filmeBar"></i></div>
+    </div>
+    <p class="filme__cap">Material publicitário. Caso de ilustração.</p>
+  </section>
+
+  <!-- 5 · O LOTE -->
   <section class="lote" id="lote" data-sc-act="flow" aria-labelledby="tLote">
     <div class="lote__grid">
       <div data-sc-in data-sc-stagger="60">
@@ -374,7 +427,7 @@
     <div><div class="foot__brand"><img src="logo.png" width="34" height="34" alt=""><b>Ponto Cálculo</b></div><p>O robô do <span class="nw">PJe-Calc</span>. Quem confere e assina é você.</p></div>
     <div><p class="lab">O método</p><ul><li>Lê o PDF dos autos</li><li>6 portões de integridade</li><li>40 conferências</li><li>Lança no <span class="nw">PJe-Calc</span></li></ul></div>
     <div><p class="lab">O que sai</p><ul><li>PDF do <span class="nw">PJe-Calc</span></li><li>Arquivo .PJC</li><li>Checklist conferido</li></ul></div>
-    <div><p class="lab">Seções</p><ul><li><a href="#mergulho">O mergulho</a></li><li><a href="#monte">Os autos</a></li><li><a href="#tri">O método</a></li><li><a href="#lote">O lote</a></li></ul></div>
+    <div><p class="lab">Seções</p><ul><li><a href="#mergulho">O mergulho</a></li><li><a href="#monte">Os autos</a></li><li><a href="#tri">O método</a></li><li><a href="#filme">O filme</a></li><li><a href="#lote">O lote</a></li></ul></div>
   </div>
   <div class="foot__row"><span><b>Material publicitário.</b> Ponto Cálculo é uma marca da CB Recovery Brasil Assessoria. Imagens ilustrativas.</span><span>Quem confere e assina o cálculo é você.</span></div>
 </footer>
@@ -510,10 +563,46 @@
     mus.addEventListener('play', paint); mus.addEventListener('pause', paint);
     btns.forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); on = !(on && !mus.paused); try { localStorage.setItem('pc_som', on ? '1' : '0'); } catch (er) {} if (on) start(); else { target = 0; fade(); } paint(); }); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) mus.pause(); else if (on && target > 0) { var pr = mus.play(); if (pr && pr.catch) pr.catch(function () {}); } });
-    function first(e) { if (e && e.target && e.target.closest && e.target.closest('[data-snd]')) return; start(); ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { removeEventListener(ev, first, true); }); }
+    function first(e) { if (e && e.target && e.target.closest && e.target.closest('[data-snd], #filmeFrame')) return; start(); ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { removeEventListener(ev, first, true); }); }
     ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { addEventListener(ev, first, { capture: true, passive: true }); });
     paint();
-    return {};
+    var held = false;
+    return {
+      on: function () { return on; },
+      // abaixa a musica enquanto o filme fala, e volta quando ele para
+      duck: function (y) { if (y) { if (target > 0) { held = true; target = 0; fade(); } } else if (held) { held = false; start(); } }
+    };
+  })();
+
+  // ---------- o filme: toca sozinho ao chegar na tela, com Pular e Ligar som ----------
+  (function () {
+    var fr = $('#filmeFrame'), v = $('#filmeVid'), som = $('#filmeSom'), pular = $('#filmePular'), play = $('#filmePlay'), end = $('#filmeEnd'), barF = $('#filmeBar');
+    var vert = matchMedia('(max-width: 860px)').matches, loaded = false, ended = false;
+    fr.classList.toggle('is-vert', vert); v.poster = vert ? 'filme-916.jpg' : 'filme-169.jpg';
+    function load() { if (!loaded) { loaded = true; v.preload = 'auto'; v.src = vert ? 'filme-916.mp4' : 'filme-169.mp4'; } }
+    function paint() { som.querySelector('span').textContent = v.muted ? 'Ligar som' : 'Sem som'; som.setAttribute('aria-pressed', v.muted ? 'false' : 'true'); }
+    function ativo() { return navigator.userActivation ? navigator.userActivation.hasBeenActive : false; }
+    function tocar(comSom) {
+      load(); end.hidden = true; ended = false; v.muted = !comSom; paint();
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function () { if (!v.muted) tocar(false); else play.hidden = false; });
+    }
+    new IntersectionObserver(function (en) { if (en[0].isIntersecting) load(); }, { rootMargin: '600px 0px' }).observe(fr);
+    new IntersectionObserver(function (en) {
+      if (en[0].intersectionRatio >= .6) { if (!ended && v.paused && play.hidden) tocar(Snd.on() && ativo()); }
+      else if (!v.paused) v.pause();
+    }, { threshold: [0, .6] }).observe(fr);
+    v.addEventListener('timeupdate', function () { if (v.duration) barF.style.transform = 'scaleX(' + (v.currentTime / v.duration).toFixed(4) + ')'; });
+    v.addEventListener('ended', function () { Snd.duck(false); ended = true; end.hidden = false; });
+    v.addEventListener('play', function () { play.hidden = true; Snd.duck(!v.muted); });
+    v.addEventListener('pause', function () { Snd.duck(false); });
+    v.addEventListener('volumechange', function () { Snd.duck(!v.paused && !v.muted); });
+    v.addEventListener('click', function () { if (v.paused) tocar(!v.muted); else v.pause(); });
+    som.addEventListener('click', function () { v.muted = !v.muted; paint(); if (v.paused && !ended) tocar(!v.muted); });
+    pular.addEventListener('click', function () { v.pause(); $('#lote').scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+    play.addEventListener('click', function () { tocar(true); });
+    $('#filmeAgain').addEventListener('click', function () { v.currentTime = 0; tocar(!v.muted); });
+    paint();
   })();
 
   // ---------- quadro a quadro: mergulho, barra de topo, parallax das tres fotos ----------
