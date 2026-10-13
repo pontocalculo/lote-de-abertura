@@ -251,6 +251,17 @@
   .foot__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-top: 18px; border-top: 1px solid rgba(247, 250, 246, .18); font: 500 12.5px/1.5 var(--sc-font-text); color: rgba(247, 250, 246, .7); }
   .foot__row b { color: var(--snow); }
   @media (max-width: 860px) { .foot__top { grid-template-columns: 1fr; } .foot__cols { grid-template-columns: 1fr 1fr; } .foot__cols > :first-child { grid-column: 1 / -1; } }
+  .pills.pills--3 { grid-template-columns: repeat(3, 1fr); }
+  .lgpd { margin-top: 12px; font: 500 12px/1.5 var(--sc-font-text); color: var(--sc-ink-soft); }
+  .lgpd a, .mais a { color: var(--leaf); }
+  .mais { margin-top: 18px; font: 500 14.5px/1.5 var(--sc-font-text); color: var(--sc-ink-soft); max-width: 46ch; }
+  @media (min-width: 861px) { .foot__cols { grid-template-columns: 1.3fr 1fr 1fr 1.1fr 1fr; } }
+  .foot__legal { padding-bottom: 18px; }
+  .foot__legal p { margin-top: 10px; max-width: 110ch; font: 500 12.5px/1.6 var(--sc-font-text); color: rgba(247, 250, 246, .7); }
+  .foot__legal b { color: var(--snow); }
+  .foot__row a { color: var(--snow); }
+  a.snd { text-decoration: none; }
+  @media (max-width: 560px) { .bar a.snd { display: none; } }
 </style>
 </head>
 <body>
@@ -259,6 +270,7 @@
   <a class="brand" href="#mergulho" aria-label="Ponto Cálculo, início"><img src="logo.png" width="30" height="30" alt=""><span><b>Ponto Cálculo</b><small>O robô do <span class="nw">PJe-Calc</span></small></span></a>
   <nav class="nav" aria-label="Seções"><a href="#mergulho">O mergulho</a><a href="#monte">Os autos</a><a href="#tri">O método</a><a href="#filme">O filme</a><a href="#lote">O lote</a></nav>
   <div class="r">
+    <a class="snd" href="https://wa.me/551332244264?text=Ol%C3%A1%21%20Vim%20pela%20p%C3%A1gina%20do%20lote%20de%20abertura%20do%20Ponto%20C%C3%A1lculo." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></a>
     <button class="snd" type="button" data-snd aria-pressed="false" aria-label="Ligar música"><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9l5 6M21 9l-5 6"/></svg><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
     <a class="pill" href="#lote"><span class="pill__l">Garantir minha vaga</span><span class="pill__s">Minha vaga</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
   </div>
@@ -373,6 +385,7 @@
           <li><b>01</b>Quem está na lista recebe o convite antes de abrir.</li>
           <li><b>00</b>Nada é cobrado agora. É só uma reserva.</li>
         </ul>
+        <p class="mais">Quer ver o robô por dentro, com o Caso C inteiro e as perguntas de sempre? <a href="../">Veja a página completa</a>.</p>
       </div>
       <div class="form" id="formCard">
         <form id="leadForm" method="post" action="#" novalidate>
@@ -384,10 +397,10 @@
           <fieldset class="fld">
             <legend>Cálculos por mês</legend>
             <div class="pills">
-              <label><input type="radio" name="calculos_mes" value="1-3" required><span>1 a 3</span></label>
+              <label><input type="radio" name="calculos_mes" value="1-2" required><span>1 a 2</span></label>
+              <label><input type="radio" name="calculos_mes" value="3"><span>3</span></label>
               <label><input type="radio" name="calculos_mes" value="4-10"><span>4 a 10</span></label>
-              <label><input type="radio" name="calculos_mes" value="11-30"><span>11 a 30</span></label>
-              <label><input type="radio" name="calculos_mes" value="30+"><span>Mais de 30</span></label>
+              <label><input type="radio" name="calculos_mes" value="10+"><span>Mais de 10</span></label>
             </div>
             <span class="err" id="eCalc"></span>
           </fieldset>
@@ -399,11 +412,21 @@
               <option>Perito(a) ou calculista</option>
               <option>Empresa ou RH</option>
             </select><span class="err" id="ePerfil"></span></div>
+          <fieldset class="fld">
+            <legend>Depois do cálculo, você precisa declarar ao eSocial?</legend>
+            <div class="pills pills--3">
+              <label><input type="radio" name="esocial" value="sim" required><span>Sim</span></label>
+              <label><input type="radio" name="esocial" value="nao"><span>Não</span></label>
+              <label><input type="radio" name="esocial" value="nao-sei"><span>Não sei</span></label>
+            </div>
+            <span class="err" id="eEso"></span>
+          </fieldset>
           <label class="consent"><input type="checkbox" id="fLgpd" name="lgpd" required><span>Aceito receber contato do Ponto Cálculo sobre o lançamento, por e-mail e WhatsApp. Posso pedir a exclusão dos meus dados quando quiser.</span></label>
           <span class="err" id="eLgpd"></span>
           <input type="hidden" name="origem" id="fOrigem">
           <button class="send" type="submit" id="fBtn">Garantir minha vaga <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></button>
           <p class="note" id="fNote"></p>
+          <p class="lgpd">Seus dados são tratados pela CB Recovery Brasil Assessoria Ltda (CNPJ 13.216.041/0001-61) apenas para avisar você sobre o lançamento do Ponto Cálculo. Não pedimos documento nem processo. Você pode pedir a exclusão a qualquer momento. Leia a <a href="privacidade.html">Política de Privacidade</a>.</p>
         </form>
         <div class="done" role="status" aria-live="polite">
           <h3>Vaga reservada.</h3>
@@ -427,9 +450,14 @@
     <div><div class="foot__brand"><img src="logo.png" width="34" height="34" alt=""><b>Ponto Cálculo</b></div><p>O robô do <span class="nw">PJe-Calc</span>. Quem confere e assina é você.</p></div>
     <div><p class="lab">O método</p><ul><li>Lê o PDF dos autos</li><li>6 portões de integridade</li><li>40 conferências</li><li>Lança no <span class="nw">PJe-Calc</span></li></ul></div>
     <div><p class="lab">O que sai</p><ul><li>PDF do <span class="nw">PJe-Calc</span></li><li>Arquivo .PJC</li><li>Checklist conferido</li></ul></div>
+    <div><p class="lab">Contato</p><ul><li><a href="https://wa.me/551332244264?text=Ol%C3%A1%21%20Vim%20pela%20p%C3%A1gina%20do%20lote%20de%20abertura%20do%20Ponto%20C%C3%A1lculo." target="_blank" rel="noopener">WhatsApp (13) 3224-4264</a></li><li><a href="mailto:pontocalculo1@gmail.com">pontocalculo1@gmail.com</a></li><li><a href="https://www.instagram.com/pontocalculotrabalhista/" target="_blank" rel="noopener">@pontocalculotrabalhista</a></li><li>Dias úteis, das 9h às 18h</li></ul></div>
     <div><p class="lab">Seções</p><ul><li><a href="#mergulho">O mergulho</a></li><li><a href="#monte">Os autos</a></li><li><a href="#tri">O método</a></li><li><a href="#filme">O filme</a></li><li><a href="#lote">O lote</a></li></ul></div>
   </div>
-  <div class="foot__row"><span><b>Material publicitário.</b> Ponto Cálculo é uma marca da CB Recovery Brasil Assessoria. Imagens ilustrativas.</span><span>Quem confere e assina o cálculo é você.</span></div>
+  <div class="foot__legal">
+    <p><b>Material publicitário.</b> Ponto Cálculo é uma ferramenta de automação. Não presta consultoria jurídica, não garante resultado processual e não substitui a responsabilidade técnica do profissional que aprova e assina o cálculo.</p>
+    <p>O <span class="nw">PJe-Calc</span> Cidadão é software público desenvolvido pelo Tribunal Regional do Trabalho da 8ª Região a pedido do Conselho Superior da Justiça do Trabalho, instalado e mantido pelo próprio usuário. Indisponibilidade, alteração ou defeito desse sistema não constitui falha do Ponto Cálculo. A responsabilidade do Ponto Cálculo limita-se ao valor da licença contratada no período.</p>
+  </div>
+  <div class="foot__row"><span>Ponto Cálculo é uma marca da CB Recovery Brasil Assessoria Ltda, CNPJ 13.216.041/0001-61. Imagens ilustrativas.</span><span><a href="termos.html">Termos de uso</a> · <a href="privacidade.html">Política de privacidade</a></span></div>
 </footer>
 
 <script>
@@ -638,13 +666,14 @@
     ok = setErr(zap, 'eZap', zap.value.replace(/\D/g, '').length >= 10 ? '' : 'Informe o WhatsApp com DDD.') && ok;
     ok = setErr(null, 'eCalc', form.querySelector('input[name="calculos_mes"]:checked') ? '' : 'Escolha uma faixa.') && ok;
     ok = setErr(perfil, 'ePerfil', perfil.value ? '' : 'Escolha uma opção.') && ok;
+    ok = setErr(null, 'eEso', form.querySelector('input[name="esocial"]:checked') ? '' : 'Escolha uma opção.') && ok;
     ok = setErr($('#fLgpd'), 'eLgpd', $('#fLgpd').checked ? '' : 'É preciso aceitar para reservar.') && ok;
     return ok;
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validate()) { var bad = form.querySelector('[aria-invalid="true"]'); if (bad) bad.focus(); return; }
-    var data = { nome: $('#fNome').value.trim(), email: $('#fEmail').value.trim().toLowerCase(), whatsapp: zap.value.replace(/\D/g, ''), calculos_mes: form.querySelector('input[name="calculos_mes"]:checked').value, perfil: $('#fPerfil').value, lgpd: true, origem: JSON.parse($('#fOrigem').value || '{}') };
+    var data = { nome: $('#fNome').value.trim(), email: $('#fEmail').value.trim().toLowerCase(), whatsapp: zap.value.replace(/\D/g, ''), calculos_mes: form.querySelector('input[name="calculos_mes"]:checked').value, perfil: $('#fPerfil').value, lgpd: true, origem: Object.assign(JSON.parse($('#fOrigem').value || '{}'), { esocial: form.querySelector('input[name="esocial"]:checked').value }) };
     var cfg = window.PC_LEADS || {};
     btn.disabled = true; note.textContent = 'Enviando...';
     var hd = { 'Content-Type': 'application/json', apikey: cfg.anonKey, Prefer: 'return=minimal' };
