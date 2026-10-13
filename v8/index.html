@@ -558,13 +558,15 @@
     try { on = localStorage.getItem('pc_som') !== '0'; } catch (e) {}
     mus.src = 'musica.m4a'; mus.loop = true; mus.preload = 'none'; mus.volume = 0;
     function fade() { cancelAnimationFrame(raf); (function step() { var d = target - mus.volume; if (Math.abs(d) < .004) { mus.volume = target; if (!target && !mus.paused) mus.pause(); return; } mus.volume = clamp(mus.volume + d * .06, 0, 1); raf = requestAnimationFrame(step); })(); }
-    function start() { if (!on) return; target = VOL; if (mus.paused) { var pr = mus.play(); if (pr && pr.catch) pr.catch(function () {}); } fade(); }
+    function start() { if (!on) return; target = VOL; if (mus.paused) { var pr = mus.play(); if (pr && pr.catch) pr.catch(function () { if (mus.paused) { target = 0; mus.volume = 0; } }); } fade(); }
     function paint() { btns.forEach(function (b) { b.setAttribute('aria-pressed', on && !mus.paused ? 'true' : 'false'); b.setAttribute('aria-label', on ? 'Desligar música' : 'Ligar música'); }); }
     mus.addEventListener('play', paint); mus.addEventListener('pause', paint);
     btns.forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); on = !(on && !mus.paused); try { localStorage.setItem('pc_som', on ? '1' : '0'); } catch (er) {} if (on) start(); else { target = 0; fade(); } paint(); }); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) mus.pause(); else if (on && target > 0) { var pr = mus.play(); if (pr && pr.catch) pr.catch(function () {}); } });
     function first(e) { if (e && e.target && e.target.closest && e.target.closest('[data-snd], #filmeFrame')) return; start(); ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { removeEventListener(ev, first, true); }); }
     ['pointerdown', 'keydown', 'touchend'].forEach(function (ev) { addEventListener(ev, first, { capture: true, passive: true }); });
+    // tenta comecar ja na abertura; se o navegador barrar, comeca no primeiro clique ou toque
+    mus.preload = 'auto'; start();
     paint();
     var held = false;
     return {
