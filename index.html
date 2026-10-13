@@ -1088,7 +1088,7 @@
   // ---------- som: tudo sintetizado no codigo; so toca depois que a pessoa liga ----------
   var Snd = (function () {
     var ctx = null, master = null, on = false, sndBtns = Array.prototype.slice.call(document.querySelectorAll('[data-snd]'));
-    on = true; try { on = localStorage.getItem('pc_som') !== '0'; } catch (e) {}
+    on = false; // a musica comeca desligada; quem quiser liga no botao de som
     // trilha de fundo: a Oficial 2.0 (so a musica, sem efeitos), baixinha e em loop
     var mus = new Audio(), MUS_VOL = .22, musTarget = 0, musRaf = 0, ducked = false;
     mus.src = 'assets/musica.m4a'; mus.loop = true; mus.preload = 'auto'; mus.volume = 0;
@@ -1103,7 +1103,8 @@
     }
     function musStart() {
       if (!on) return;
-      musTarget = ducked ? MUS_VOL * .15 : MUS_VOL;
+      if (ducked) { musTarget = 0; musFade(); return; }
+      musTarget = MUS_VOL;
       if (mus.paused) { var pr = mus.play(); if (pr && pr.catch) pr.catch(function () {}); }
       musFade();
     }
@@ -1135,7 +1136,7 @@
     var api = {
       toggle: function () { on = !on; if (on && !boot()) { on = false; } try { localStorage.setItem('pc_som', on ? '1' : '0'); } catch (e) {} paint(); if (on) { api.click(); musStart(); } else musStop(); },
       ready: function () { if (on) { boot(); musStart(); } paint(); },
-      duck: function (yes) { ducked = !!yes; if (on && musTarget > 0) { musTarget = ducked ? MUS_VOL * .15 : MUS_VOL; musFade(); } },
+      duck: function (yes) { ducked = !!yes; if (!on) return; if (ducked) { musTarget = 0; musFade(); } else musStart(); },
       click: function () { if (!ok()) return; var t = ctx.currentTime; noise(t, .035, .5, 3200, 1.2); tone(1900, t, .05, 'sine', .18); },
       type: function (col, row) { if (!ok()) return; var t = ctx.currentTime; noise(t, .03, .45, 2600, 1); tone(PENT[(col * 2 + row) % PENT.length], t, .13, 'triangle', .22); },
       wave: function (ms) { if (!ok()) return; var t = ctx.currentTime, N = 26, span = (ms || 1300) / 1000;
@@ -1675,6 +1676,17 @@
       .catch(function () { btn.disabled = false; note.textContent = 'Não foi possível enviar agora. Tente de novo em instantes.'; });
   });
 
+  // ---------- videos com som (o filme e o Caso C): enquanto um toca com som, a musica para ----------
+  var VIDS = ['#filmeVid', '#casoC'].map(function (s) { return $(s); }).filter(Boolean);
+  function soando(x) { return !x.paused && !x.ended && !x.muted && x.volume > 0; }
+  function syncSom() { Snd.duck(VIDS.some(soando)); }
+  function pausaOutros(atual) { VIDS.forEach(function (x) { if (x !== atual && !x.paused) x.pause(); }); }
+  var casoC = $('#casoC');
+  if (casoC) {
+    casoC.addEventListener('play', function () { pausaOutros(casoC); syncSom(); });
+    ['pause', 'ended', 'volumechange'].forEach(function (ev) { casoC.addEventListener(ev, syncSom); });
+  }
+
   // ---------- o filme: toca sozinho ao chegar na tela, com Pular e Ligar som ----------
   (function () {
     var sec = $('#filme'), v = $('#filmeVid'), som = $('#filmeSom'), pular = $('#filmePular'), play = $('#filmePlay'), end = $('#filmeEnd'), bar = $('#filmeBar');
@@ -1696,10 +1708,10 @@
       filmOn = e.intersectionRatio >= .3; trayUpd();
     }, { threshold: [0, .3, .55], rootMargin: '200px 0px 200px 0px' }).observe(sec);
     v.addEventListener('timeupdate', function () { if (v.duration) bar.style.transform = 'scaleX(' + (v.currentTime / v.duration).toFixed(3) + ')'; });
-    v.addEventListener('ended', function () { Snd.duck(false); ended = true; end.hidden = false; tally.filme = true; receipt(); say('Filme visto até o fim'); });
-    v.addEventListener('play', function () { play.hidden = true; Snd.duck(!v.muted); });
-    v.addEventListener('pause', function () { Snd.duck(false); });
-    v.addEventListener('volumechange', function () { Snd.duck(!v.paused && !v.muted); });
+    v.addEventListener('ended', function () { syncSom(); ended = true; end.hidden = false; tally.filme = true; receipt(); say('Filme visto até o fim'); });
+    v.addEventListener('play', function () { play.hidden = true; pausaOutros(v); syncSom(); });
+    v.addEventListener('pause', syncSom);
+    v.addEventListener('volumechange', syncSom);
     som.addEventListener('click', function () { v.muted = !v.muted; somPaint(); if (v.paused && !ended) tocar(!v.muted); Snd.click(); });
     pular.addEventListener('click', function () { v.pause(); Snd.click(); $('#formCard').scrollIntoView({ block: 'start', behavior: 'smooth' }); });
     play.addEventListener('click', function () { tocar(!v.muted); });
