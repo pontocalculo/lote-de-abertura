@@ -262,6 +262,18 @@
   .foot__row a { color: var(--snow); }
   a.snd { text-decoration: none; }
   @media (max-width: 560px) { .bar a.snd { display: none; } }
+  .v9btn { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 999px; border: 1.5px solid var(--deep); color: var(--deep); background: transparent; font: 700 12px/1 var(--sc-font-text); letter-spacing: .18em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+  .v9btn:hover { background: var(--deep); color: var(--snow); }
+  .v9btn--claro { border-color: rgba(247, 250, 246, .75); color: var(--snow); background: rgba(6, 22, 15, .25); }
+  .v9btn--claro:hover { background: var(--snow); color: var(--deep); }
+  .v9btn:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+  .st .v9btn { margin: 26px 0 0 10px; height: 52px; }
+  .v9card { margin-top: 22px; padding: 18px 20px; border-radius: 6px; background: #fff; border: 1px solid var(--line-d); }
+  .v9card p { font: 500 14.5px/1.5 var(--sc-font-text); color: var(--sc-ink-soft); margin-bottom: 14px; }
+  .v9card b { color: var(--deep); }
+  .foot__ctas { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  @media (max-width: 860px) { .st .v9btn { margin-left: 0; margin-top: 10px; } }
+  @media (min-width: 861px) { .st--dtop { top: clamp(100px, 14vh, 150px); bottom: auto; } .stats { top: clamp(112px, 16vh, 166px); bottom: auto; } }
 </style>
 </head>
 <body>
@@ -300,7 +312,7 @@
         <p class="tag">E o erro costuma aparecer só na impugnação.</p>
       </div>
 
-      <div class="st st--bl" data-st="3" data-sc-cue="0.63 0.83 0.2 0.2">
+      <div class="st st--bl st--dtop" data-st="3" data-sc-cue="0.63 0.83 0.2 0.2">
         <p class="lab">O método</p>
         <h2 class="big">Leia. Confira. <em>Deixe com</em> o robô.</h2>
         <p class="tag">Ele lê o PDF dos autos e lança no programa oficial.</p>
@@ -317,6 +329,7 @@
         <h2 class="big">Quem confere <em>e assina</em> é você.</h2>
         <p class="tag">O robô lança. Você aprova, item por item.</p>
         <a class="go" href="#lote">Garantir minha vaga <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+        <a class="v9btn v9btn--claro" href="../">Ver a página completa</a>
       </div>
 
       <div class="alt" aria-hidden="true"><span class="lab">Até o campo 97</span><span class="alt__rule"><i></i></span><span class="alt__n" id="altN">612 m</span></div>
@@ -385,7 +398,10 @@
           <li><b>01</b>Quem está na lista recebe o convite antes de abrir.</li>
           <li><b>00</b>Nada é cobrado agora. É só uma reserva.</li>
         </ul>
-        <p class="mais">Quer ver o robô por dentro, com o Caso C inteiro e as perguntas de sempre? <a href="../">Veja a página completa</a>.</p>
+        <div class="v9card">
+          <p><b>Quer ver o robô por dentro antes?</b> O Caso C inteiro, sem corte, o método passo a passo e as perguntas de sempre.</p>
+          <a class="v9btn" href="../">Ver a página completa <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+        </div>
       </div>
       <div class="form" id="formCard">
         <form id="leadForm" method="post" action="#" novalidate>
@@ -444,7 +460,10 @@
       <p class="big big--md">A fila <em>está aberta.</em></p>
       <p class="tag">50 licenças. Nada é cobrado agora.</p>
     </div>
-    <a class="foot__go" href="#lote">Garantir minha vaga <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+    <div class="foot__ctas">
+      <a class="foot__go" href="#lote">Garantir minha vaga <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6"/></svg></a>
+      <a class="v9btn v9btn--claro" href="../">Ver a página completa</a>
+    </div>
   </div>
   <div class="foot__cols">
     <div><div class="foot__brand"><img src="logo.png" width="34" height="34" alt=""><b>Ponto Cálculo</b></div><p>O robô do <span class="nw">PJe-Calc</span>. Quem confere e assina é você.</p></div>
