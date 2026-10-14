@@ -304,7 +304,7 @@
   @media (max-width: 860px) {
     /* a pilha tem no maximo 45% da altura; o nome se apoia no pico dela (sobra 10% da letra atras do pico) e cabe abaixo do rotulo */
     .monte { --ridge-w: min(210vw, 104svh); --ridge-b: 7svh; }
-    .monte__name { --name-size: min(25vw, 13svh); --rise: 115%; white-space: normal; line-height: 1.02; top: auto; bottom: calc(var(--ridge-b) + var(--ridge-w) * .434 - var(--name-size) * .1); transform: translateY(calc((1 - min(1, var(--sc-p, 0) / .55)) * var(--rise))); }
+    .monte__name { --name-size: min(25vw, 13svh); --rise: 115%; white-space: normal; line-height: 1.02; top: auto; bottom: calc(var(--ridge-b) + var(--ridge-w) * .434 - var(--name-size) * .1); transform: translateY(calc((1 - var(--sobe, 1)) * var(--rise))); }
     .monte__name span { display: block; }
     .monte__cap { bottom: calc(96px + env(safe-area-inset-bottom)); }    /* acima da bandeja fixa do celular */
     .monte__fog { height: 36%; background: linear-gradient(0deg, var(--snow) 40%, rgba(247, 250, 246, 0)); }    /* a legenda le sobre nevoa, nao sobre os papeis */
@@ -2072,8 +2072,8 @@
     });
     return { ativa: true, pe: pe, trava: trava };
   })();
-  // no celular a cordilheira ganha mais rolagem: o nome sobe e ainda fica um tempo inteiro na tela
-  (function () { var mt = document.getElementById('monte'); if (mt && innerWidth < 861) mt.setAttribute('data-sc-span', '2'); })();
+  // no celular a cordilheira quase nao prende: o nome sobe enquanto a cena entra (ver --sobe no quadro a quadro)
+  (function () { var mt = document.getElementById('monte'); if (mt && innerWidth < 861) mt.setAttribute('data-sc-span', '1.15'); })();
   ScrollCraft.mount(document.body);
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -2818,7 +2818,7 @@
   scrollPaint();
 
   // ---------- quadro a quadro: mergulho, barra de topo e as tres fotos ----------
-  var bar = $('#bar'), DARK = $$('#demo, #esocial, #filme, #foot'), triGrid = $('.tri__grid'), frs = $$('[data-r]');
+  var bar = $('#bar'), DARK = $$('#demo, #esocial, #filme, #foot'), triGrid = $('.tri__grid'), frs = $$('[data-r]'), monteEl = $('#monte');
   function frame(now) {
     Dive.tick(); Entrada.tick(now || performance.now());
     var y = 60, naFoto = dive.getBoundingClientRect().bottom > y;
@@ -2827,6 +2827,8 @@
     bar.classList.toggle('is-paper', !naFoto && !escuro);
     bar.classList.toggle('is-solid', !naFoto);
     bar.classList.toggle('is-dark', !naFoto && escuro);
+    // cordilheira: o nome sobe junto com a rolagem enquanto a cena entra na tela; inteiro um pouco depois de ela encostar no topo
+    var mr = monteEl.getBoundingClientRect(); if (mr.top < innerHeight && mr.bottom > 0) monteEl.style.setProperty('--sobe', clamp((innerHeight - mr.top) / (innerHeight * 1.05), 0, 1).toFixed(3));
     frs.forEach(function (f) { var q = f.getBoundingClientRect(); if (q.bottom < 0 || q.top > innerHeight) return; var v = clamp((innerHeight - q.top) / (innerHeight + q.height), 0, 1); f.style.setProperty('--r', v.toFixed(3)); });
     requestAnimationFrame(frame);
   }
