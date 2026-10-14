@@ -291,7 +291,7 @@
   /* ---------- 3 · a cordilheira de autos, com o nome subindo por tras ---------- */
   .monte { position: relative; background: var(--snow); color: var(--deep); overflow: clip; }
   .monte [data-sc-stage] { background: linear-gradient(180deg, #E4ECE6 0%, var(--snow) 62%); }
-  .monte__name { position: absolute; z-index: 1; left: 0; right: 0; top: var(--name-top, 38%); text-align: center; font: 400 var(--name-size, min(15.6vw, 30vh))/.8 var(--sc-font-display); letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; padding-top: .16em; color: transparent; background: linear-gradient(180deg, #0E4E2E 0%, #1F8A57 52%, #7CC79F 100%); -webkit-background-clip: text; background-clip: text; transform: translateY(calc(-50% + (1 - var(--sc-p, 0)) * var(--rise, 200%))); }
+  .monte__name { position: absolute; z-index: 1; left: 0; right: 0; top: var(--name-top, 38%); text-align: center; font: 400 var(--name-size, min(15.6vw, 30vh))/.8 var(--sc-font-display); letter-spacing: -.004em; text-transform: uppercase; white-space: nowrap; padding-top: .16em; color: transparent; background: linear-gradient(180deg, #0E4E2E 0%, #1F8A57 52%, #7CC79F 100%); -webkit-background-clip: text; background-clip: text; transform: translateY(calc(-50% + (1 - min(1, var(--sc-p, 0) / .55)) * var(--rise, 200%))); }
   .monte__name span { display: inline; }
   .monte__ridge { position: absolute; z-index: 2; left: 50%; bottom: var(--ridge-b, -7%); width: var(--ridge-w, 100vw); max-width: 2400px; transform: translate(-50%, calc((1 - var(--sc-p, 0)) * 5%)); }
   .monte__ridge img { display: block; width: 100%; height: auto; }
@@ -302,9 +302,12 @@
   .monte__top { position: absolute; z-index: 4; left: var(--gut); right: var(--gut); top: clamp(80px, 12vh, 120px); display: flex; justify-content: space-between; gap: 12px; }
   @media (min-width: 861px) { .monte__ridge { top: max(47%, calc(100% - 43.4vw)); bottom: auto; } }
   @media (max-width: 860px) {
-    .monte__name { --name-size: 25vw; --name-top: 36%; --rise: 130%; white-space: normal; line-height: 1.02; }
+    /* a pilha tem no maximo 45% da altura; o nome se apoia no pico dela (sobra 10% da letra atras do pico) e cabe abaixo do rotulo */
+    .monte { --ridge-w: min(210vw, 104svh); --ridge-b: 7svh; }
+    .monte__name { --name-size: min(25vw, 13svh); --rise: 115%; white-space: normal; line-height: 1.02; top: auto; bottom: calc(var(--ridge-b) + var(--ridge-w) * .434 - var(--name-size) * .1); transform: translateY(calc((1 - min(1, var(--sc-p, 0) / .55)) * var(--rise))); }
     .monte__name span { display: block; }
-    .monte__ridge { --ridge-w: 210vw; --ridge-b: 9%; }
+    .monte__cap { bottom: calc(96px + env(safe-area-inset-bottom)); }    /* acima da bandeja fixa do celular */
+    .monte__fog { height: 36%; background: linear-gradient(0deg, var(--snow) 40%, rgba(247, 250, 246, 0)); }    /* a legenda le sobre nevoa, nao sobre os papeis */
     .monte__top .lab:last-child { display: none; }
   }
 
@@ -1030,16 +1033,23 @@
   .sec--dark, .filme, .foot { isolation: isolate; }
   .sec--dark::before, .filme::before, .foot::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .07; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   .filme { position: relative; }
-  /* depoimentos: trilho lateral, um de cada vez (pan) */
+  /* depoimentos: parede em rolagem normal; o titulo fica preso ao lado enquanto os cartoes passam */
   .deps { background: var(--sc-canvas); }
-  .deps [data-sc-stage] { display: flex; align-items: center; background: var(--sc-canvas); }
-  .rail { gap: 18px; padding: 0 var(--gut); align-items: stretch; }
-  .rail > * { flex: 0 0 auto; }
-  .rail__head { width: min(30rem, 78vw); align-self: center; padding-right: clamp(10px, 3vw, 48px); }
-  .rail .depo { width: min(80vw, 380px); transform: translateY(calc((1 - var(--a, 1)) * 18px)); opacity: calc(.55 + var(--a, 1) * .45); }
-  .rail__end { width: min(24rem, 74vw); align-self: center; display: grid; gap: 18px; justify-items: start; padding-left: clamp(10px, 3vw, 40px); }
-  .rail__end .tag { color: var(--deep); }
-  @media (max-width: 860px) { .rail__head { width: 82vw; } }
+  .deps__in { display: grid; grid-template-columns: minmax(250px, .78fr) minmax(0, 2fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+  .deps__head { position: sticky; top: 108px; }
+  .deps__fim { margin-top: 28px; display: grid; gap: 16px; justify-items: start; }
+  .deps__fim .tag { color: var(--deep); }
+  .deps__parede { columns: 2 300px; column-gap: 18px; }
+  .deps__parede .depo { break-inside: avoid; margin: 0 0 18px; }
+  .deps__mais { display: none; }
+  @media (max-width: 860px) {
+    .deps__in { grid-template-columns: minmax(0, 1fr); }
+    .deps__head { position: static; }
+    .deps__parede { columns: 1; }
+    .deps__parede:not(.is-aberta) .depo:nth-child(n+5) { display: none; }
+    .deps__mais { display: inline-flex; justify-self: start; }
+    .deps__parede.is-aberta ~ .deps__mais { display: none; }
+  }
 
   /* ---------- 0 · a entrada: as tres pastas no ceu, antes de descer ---------- */
   .ent { position: absolute; inset: 0; z-index: 8; perspective: 1500px; perspective-origin: 50% 46%; pointer-events: none; }
@@ -1882,22 +1892,22 @@
   </section>
 
   <!-- 19b · DEPOIMENTOS: um trilho lateral, um depoimento por vez (prova social igual para todos os perfis) -->
-  <section class="deps" id="depoimentos" data-sc-act="pan" data-sc-span="4.4" aria-labelledby="tDeps">
-    <div data-sc-stage>
-      <div class="rail" data-sc-pan="0.04">
-        <div class="rail__head"><h2 class="big big--sm" id="tDeps">O que mudou <em>na mesa deles.</em></h2><p class="head__sub">Depoimentos institucionais, publicados com autorização de uso de marca assinada pelas empresas.</p></div>
+  <section class="sec deps" id="depoimentos" data-sc-act="flow" aria-labelledby="tDeps">
+    <div class="in deps__in">
+      <div class="deps__head" data-sc-in data-sc-stagger="60"><h2 class="big big--sm" id="tDeps">O que mudou <em>na mesa deles.</em></h2><p class="head__sub">Depoimentos institucionais, publicados com autorização de uso de marca assinada pelas empresas.</p><div class="deps__fim"><p class="tag">A próxima mesa pode ser a sua.</p><a class="btn" href="#lote">Reservar minha vaga <svg aria-hidden="true"><use href="#i-seta"/></svg></a></div></div>
+      <div class="deps__parede" id="parede" role="list">
         <figure class="depo" role="listitem"><blockquote>Entrávamos em conciliação com uma estimativa e torcia. O número do outro lado parecia sempre mais firme que o nosso, não porque fosse, mas porque vinha com memória de cálculo e o nosso vinha numa planilha que ninguém defendia linha por linha. Hoje a discussão é sobre critério, e não sobre de onde saiu o número.</blockquote><figcaption><img src="assets/logos/aba.webp" width="360" height="150" alt="" loading="lazy"><span><b>Grupo ABA Infraestrutura e Logística</b><small>Terminais portuários, logística, química e combustíveis</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Passivo trabalhista, aqui, era sempre uma resposta que chegava tarde. Pedia-se o cálculo, esperava-se, e quando voltava a decisão já tinha sido tomada por outro motivo. Hoje o número chega antes da reunião.</blockquote><figcaption><img src="assets/logos/eudmarco.webp" width="198" height="150" alt="" loading="lazy"><span><b>Eudmarco</b><small>Serviços e comércio internacional, Santos</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>O que atrapalhava não era o valor: era o retrabalho. Cada cálculo refeito voltava diferente do anterior e ninguém sabia qual estava certo. Agora a premissa fica escrita, e quem confere não precisa refazer.</blockquote><figcaption><img src="assets/logos/adonai.webp" width="169" height="150" alt="" loading="lazy"><span><b>Adonai Química</b><small>Química e combustíveis</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Provisão de passivo, aqui, era um número redondo que alguém arredondava para cima por precaução. Terminal de passageiros tem muita gente entrando e saindo, e a gente não sabia quanto daquela reserva era risco e quanto era medo. Agora o valor vem apurado do programa oficial, e dá para dizer qual dos dois estava no balanço.</blockquote><figcaption><img src="assets/logos/concais.webp" width="280" height="150" alt="" loading="lazy"><span><b>Concais</b><small>Terminal de passageiros do Porto de Santos</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>O incômodo nunca foi perder: era não saber de quanto antes de sentar à mesa. A margem de segurança do acordo era chute, e o tamanho do erro só aparecia na homologação. Hoje o número que levamos é o mesmo que o juízo confere: propor e homologar deixou de ser dois números diferentes.</blockquote><figcaption><img src="assets/logos/piermaua.webp" width="360" height="107" alt="" loading="lazy"><span><b>Píer Mauá</b><small>Terminal marítimo do Rio de Janeiro</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Trabalhista em volume tem um problema que ninguém confessa: o cálculo que decide o acordo é montado por quem tem menos tempo de casa e conferido pelo sócio às onze da noite, quando já não dá para refazer. Hoje o número chega pronto e a conferência virou o que devia ter sido sempre: ler as premissas, não recalcular a conta.</blockquote><figcaption><img src="assets/logos/cbaa.webp" width="175" height="150" alt="" loading="lazy"><span><b>CB&amp;AA, Cunha, Batista &amp; Advogados Associados</b><small>Advocacia empresarial e trabalhista, Santos</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Liquidação era a parte do trabalho que a gente adiava. Não pela conta em si, mas pelas três horas digitando no PJe-Calc que ninguém paga e que não dá para delegar sem conferir tudo de novo. Hoje a equipe monta e o responsável entra onde importa: confere as premissas e assina.</blockquote><figcaption><img src="assets/logos/camargo.webp" width="228" height="150" alt="" loading="lazy"><span><b>Organizações Camargo</b><small>Advocacia e coworking</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Cálculo trabalhista era o nosso gargalo de prazo. Hoje o lançamento no PJe-Calc sai em minutos e o tempo da equipe vai para onde importa: a estratégia do caso.</blockquote><figcaption><img src="assets/logos/mcadv.webp" width="520" height="102" alt="" loading="lazy"><span><b>Márcio Cruz Advocacia</b><small>Advocacia trabalhista e desportiva, Santos</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>O cálculo trabalhista tomava a tarde de quem deveria estar atendendo cliente. Hoje o lançamento no PJe-Calc sai em minutos, e a gente confere e protocola no mesmo dia.</blockquote><figcaption><img src="assets/logos/alexandre.webp" width="440" height="297" alt="" loading="lazy"><span><b>Alexandre Santos Advocacia</b><small>Advocacia, Jataí (GO)</small></span></figcaption></figure>
-          <figure class="depo" role="listitem"><blockquote>Na consultoria, o cliente quer saber quanto custa o passivo antes de decidir. Com o Ponto Cálculo, o número sai do programa oficial em minutos, e a resposta vai no mesmo dia.</blockquote><figcaption><img src="assets/logos/mgr.webp" width="408" height="129" alt="" loading="lazy"><span><b>MGR Advogados e Consultores</b><small>Porto Velho (RO) · Dr. Paulo Magri</small></span></figcaption></figure>
-        <div class="rail__end"><p class="tag">A próxima mesa pode ser a sua.</p><a class="btn" href="#lote">Reservar minha vaga <svg aria-hidden="true"><use href="#i-seta"/></svg></a></div>
+        <figure class="depo" role="listitem"><blockquote>Passivo trabalhista, aqui, era sempre uma resposta que chegava tarde. Pedia-se o cálculo, esperava-se, e quando voltava a decisão já tinha sido tomada por outro motivo. Hoje o número chega antes da reunião.</blockquote><figcaption><img src="assets/logos/eudmarco.webp" width="198" height="150" alt="" loading="lazy"><span><b>Eudmarco</b><small>Serviços e comércio internacional, Santos</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>O que atrapalhava não era o valor: era o retrabalho. Cada cálculo refeito voltava diferente do anterior e ninguém sabia qual estava certo. Agora a premissa fica escrita, e quem confere não precisa refazer.</blockquote><figcaption><img src="assets/logos/adonai.webp" width="169" height="150" alt="" loading="lazy"><span><b>Adonai Química</b><small>Química e combustíveis</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>Provisão de passivo, aqui, era um número redondo que alguém arredondava para cima por precaução. Terminal de passageiros tem muita gente entrando e saindo, e a gente não sabia quanto daquela reserva era risco e quanto era medo. Agora o valor vem apurado do programa oficial, e dá para dizer qual dos dois estava no balanço.</blockquote><figcaption><img src="assets/logos/concais.webp" width="280" height="150" alt="" loading="lazy"><span><b>Concais</b><small>Terminal de passageiros do Porto de Santos</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>O incômodo nunca foi perder: era não saber de quanto antes de sentar à mesa. A margem de segurança do acordo era chute, e o tamanho do erro só aparecia na homologação. Hoje o número que levamos é o mesmo que o juízo confere: propor e homologar deixou de ser dois números diferentes.</blockquote><figcaption><img src="assets/logos/piermaua.webp" width="360" height="107" alt="" loading="lazy"><span><b>Píer Mauá</b><small>Terminal marítimo do Rio de Janeiro</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>Trabalhista em volume tem um problema que ninguém confessa: o cálculo que decide o acordo é montado por quem tem menos tempo de casa e conferido pelo sócio às onze da noite, quando já não dá para refazer. Hoje o número chega pronto e a conferência virou o que devia ter sido sempre: ler as premissas, não recalcular a conta.</blockquote><figcaption><img src="assets/logos/cbaa.webp" width="175" height="150" alt="" loading="lazy"><span><b>CB&amp;AA, Cunha, Batista &amp; Advogados Associados</b><small>Advocacia empresarial e trabalhista, Santos</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>Liquidação era a parte do trabalho que a gente adiava. Não pela conta em si, mas pelas três horas digitando no PJe-Calc que ninguém paga e que não dá para delegar sem conferir tudo de novo. Hoje a equipe monta e o responsável entra onde importa: confere as premissas e assina.</blockquote><figcaption><img src="assets/logos/camargo.webp" width="228" height="150" alt="" loading="lazy"><span><b>Organizações Camargo</b><small>Advocacia e coworking</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>Cálculo trabalhista era o nosso gargalo de prazo. Hoje o lançamento no PJe-Calc sai em minutos e o tempo da equipe vai para onde importa: a estratégia do caso.</blockquote><figcaption><img src="assets/logos/mcadv.webp" width="520" height="102" alt="" loading="lazy"><span><b>Márcio Cruz Advocacia</b><small>Advocacia trabalhista e desportiva, Santos</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>O cálculo trabalhista tomava a tarde de quem deveria estar atendendo cliente. Hoje o lançamento no PJe-Calc sai em minutos, e a gente confere e protocola no mesmo dia.</blockquote><figcaption><img src="assets/logos/alexandre.webp" width="440" height="297" alt="" loading="lazy"><span><b>Alexandre Santos Advocacia</b><small>Advocacia, Jataí (GO)</small></span></figcaption></figure>
+        <figure class="depo" role="listitem"><blockquote>Na consultoria, o cliente quer saber quanto custa o passivo antes de decidir. Com o Ponto Cálculo, o número sai do programa oficial em minutos, e a resposta vai no mesmo dia.</blockquote><figcaption><img src="assets/logos/mgr.webp" width="408" height="129" alt="" loading="lazy"><span><b>MGR Advogados e Consultores</b><small>Porto Velho (RO) · Dr. Paulo Magri</small></span></figcaption></figure>
       </div>
+      <button class="btn btn--line deps__mais" type="button" id="depMais" aria-controls="parede" aria-expanded="false">Ver os outros depoimentos</button>
     </div>
   </section>
 
@@ -2039,7 +2049,6 @@
 <script>
 (function () {
   'use strict';
-  (function () { var dp = document.getElementById('depoimentos'); if (dp && innerWidth < 861) dp.setAttribute('data-sc-span', '6.5'); })();
   // a entrada (as tres pastas) existe para quem chega sem perfil no endereco; ?porta=1 forca, ?porta=0 pula.
   // Nada fica guardado no navegador: cada visita comeca do zero (pedido do Eduardo, 14/10). So o link do anuncio traz o perfil.
   // Ela ocupa o comeco do proprio mergulho: o ato ganha 1,4 tela de rolagem e todas as falas do mergulho andam junto.
@@ -2063,6 +2072,8 @@
     });
     return { ativa: true, pe: pe, trava: trava };
   })();
+  // no celular a cordilheira ganha mais rolagem: o nome sobe e ainda fica um tempo inteiro na tela
+  (function () { var mt = document.getElementById('monte'); if (mt && innerWidth < 861) mt.setAttribute('data-sc-span', '2'); })();
   ScrollCraft.mount(document.body);
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -2715,7 +2726,14 @@
     });
   });
 
-  // ---------- depoimentos: setas e arrastar ----------
+  // ---------- depoimentos: no celular a parede mostra 4 e o resto num toque ----------
+  (function () {
+    var bt = $('#depMais'), w = $('#parede'); if (!bt || !w) return;
+    var cs = $$('.depo', w), resto = cs.length - 4;
+    if (resto < 1) { bt.hidden = true; return; }
+    bt.textContent = 'Ver os outros ' + resto + ' depoimentos';
+    bt.addEventListener('click', function () { w.classList.add('is-aberta'); bt.setAttribute('aria-expanded', 'true'); cs[4].setAttribute('tabindex', '-1'); cs[4].focus({ preventScroll: true }); });
+  })();
 
   // ---------- videos com som (o filme e o Caso C): enquanto um toca com som, a musica para ----------
   var VIDS = ['#filmeVid', '#casoC'].map(function (s) { return $(s); }).filter(Boolean);
@@ -2800,7 +2818,7 @@
   scrollPaint();
 
   // ---------- quadro a quadro: mergulho, barra de topo e as tres fotos ----------
-  var bar = $('#bar'), DARK = $$('#demo, #esocial, #filme, #foot'), triGrid = $('.tri__grid'), frs = $$('[data-r]'), deps = $('#depoimentos'), railItens = $$('#depoimentos .depo');
+  var bar = $('#bar'), DARK = $$('#demo, #esocial, #filme, #foot'), triGrid = $('.tri__grid'), frs = $$('[data-r]');
   function frame(now) {
     Dive.tick(); Entrada.tick(now || performance.now());
     var y = 60, naFoto = dive.getBoundingClientRect().bottom > y;
@@ -2810,8 +2828,6 @@
     bar.classList.toggle('is-solid', !naFoto);
     bar.classList.toggle('is-dark', !naFoto && escuro);
     frs.forEach(function (f) { var q = f.getBoundingClientRect(); if (q.bottom < 0 || q.top > innerHeight) return; var v = clamp((innerHeight - q.top) / (innerHeight + q.height), 0, 1); f.style.setProperty('--r', v.toFixed(3)); });
-    // trilho: cada depoimento assenta ao entrar pela direita, como uma gaveta puxada
-    if (!reduce) { var dr = deps.getBoundingClientRect(); if (dr.top < innerHeight && dr.bottom > 0) railItens.forEach(function (el) { var x = el.getBoundingClientRect().left; el.style.setProperty('--a', clamp((innerWidth - x) / (innerWidth * .3), 0, 1).toFixed(3)); }); }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
