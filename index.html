@@ -43,6 +43,8 @@
     --acao-soft: #FDF0E4;
     --acao-text: #A34A05;
     --acao-claro: #FFB27A;
+    --acao-luz: #FFA65C;
+    --acao-papel: #CF5F08;
     /* bancadas */
     --cell: #E3E8DF;
     --bar: #E7ECE4;
@@ -152,6 +154,10 @@
   .st .big { text-shadow: 0 2px 30px rgba(6, 22, 15, .35); }
   .st .big em { color: var(--mint); }
   .st .tag { margin-top: 18px; max-width: 30ch; text-shadow: 0 1px 18px rgba(6, 22, 15, .5); }
+  /* apontamento do Lucas (14/10): rotulo e frase de apoio do mergulho em laranja, para destacar a informacao */
+  .st .lab:not(.selo) { color: var(--acao-luz); font-weight: 700; text-shadow: 0 1px 2px rgba(6, 22, 15, .9), 0 0 6px rgba(6, 22, 15, .75), 0 0 18px rgba(6, 22, 15, .6); }
+  .st .lab:not(.selo)::before { background: var(--acao-luz); }
+  .st .tag { color: var(--acao-luz); text-shadow: 0 1px 2px rgba(6, 22, 15, .7), 0 1px 18px rgba(6, 22, 15, .6); }
   .st--bl { left: var(--gut); bottom: clamp(96px, 14vh, 150px); }
   .st--tr { right: var(--gut); top: clamp(110px, 16vh, 170px); text-align: right; }
   .st--tr .lab { justify-content: flex-end; }
@@ -166,7 +172,7 @@
   .acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
   .st .gratis { margin-top: 14px; }
   .st--br .acoes { justify-content: flex-end; }
-  .st .aba { margin-top: 16px; display: flex; gap: 10px; align-items: flex-start; font: 600 12.5px/1.45 var(--sc-font-text); color: rgba(247, 250, 246, .92); text-shadow: 0 1px 10px rgba(6, 22, 15, .6); max-width: 46ch; }
+  .st .aba { margin-top: 16px; display: flex; gap: 10px; align-items: flex-start; width: fit-content; padding: 9px 14px 9px 11px; border-radius: 14px; background: rgba(6, 22, 15, .62); font: 600 12.5px/1.45 var(--sc-font-text); color: rgba(247, 250, 246, .95); max-width: 46ch; }    /* fundo proprio: le em qualquer quadro, ate na saida do mergulho */
   .st--br .aba { margin-left: auto; text-align: right; justify-content: flex-end; }
   .aba svg { width: 16px; height: 16px; flex: none; margin-top: 1px; color: var(--mint); }
   .stats { position: absolute; z-index: 5; right: var(--gut); bottom: clamp(96px, 14vh, 150px); display: grid; min-width: 270px; padding: 0; margin: 0; }
@@ -256,6 +262,7 @@
   .pcard[data-perfil="empresa"] { --c: var(--leaf); }
   .pcard__frase { font: 400 clamp(1.7rem, 1.1rem + 1.5vw, 2.6rem)/.96 var(--sc-font-display); text-transform: uppercase; color: var(--deep); text-wrap: balance; }
   .pcard__sub { font: 500 15px/1.6 var(--sc-font-text); color: var(--sc-ink-soft); }
+  .pcard__frase em { font-style: normal; color: var(--acao-papel); }    /* laranja que ainda le no papel (letra grande, 3,5:1) */
   .pcard__frase { max-width: 24ch; }
   .pcard__sub { max-width: 62ch; }
   .pcard__alerta { max-width: 66ch; padding: 13px 15px; border-radius: 6px; background: var(--acao-soft); font: 500 13.5px/1.55 var(--sc-font-text); color: var(--deep); }
@@ -1067,9 +1074,13 @@
   .pasta__nome { display: none; transition: opacity .3s var(--sc-ease-out); }
   .pasta.is-esc .pasta__nome { opacity: 0; }
   .ent__pe { position: absolute; left: 0; right: 0; bottom: clamp(74px, 11vh, 110px); text-align: center; }
-  .ent__todos { pointer-events: auto; padding: 11px 18px; border: 0; border-radius: 999px; background: rgba(6, 22, 15, .5); color: var(--snow); font: 600 14.5px/1 var(--sc-font-text); text-decoration: underline; text-underline-offset: .3em; cursor: pointer; }
-  .ent__todos:hover { background: rgba(6, 22, 15, .75); }
-  .ent__todos:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+  .ent__dica { display: inline-block; padding: 11px 20px; border-radius: 999px; background: rgba(6, 22, 15, .55); color: var(--snow); font: 600 14.5px/1 var(--sc-font-text); letter-spacing: .01em; }
+  .ent__dica.is-cutuca { animation: dica .75s var(--sc-ease-out); }
+  @keyframes dica { 0% { transform: scale(1); } 25% { transform: scale(1.08); background: var(--acao); color: var(--acao-ink); } 100% { transform: scale(1); } }
+  /* a porta: sem perfil, a pagina nao desce ate escolher uma pasta; o menu e o Reservar do topo voltam depois da escolha */
+  html.trava { overflow: hidden; scrollbar-gutter: stable; }
+  html.trava body { overflow: hidden; }
+  html.trava .nav, html.trava .bar .pill, html.trava .tray { visibility: hidden; opacity: 0; }
   @media (max-width: 860px) {
     .ent__txt { top: 86px; }
     .ent__h { font-size: clamp(2.2rem, 10.4vw, 3.3rem); }
@@ -1147,7 +1158,7 @@
 
 <main>
   <!-- 1 · O MERGULHO: a rolagem desce do alto da cidade ate a mesa de quem calcula -->
-  <section class="dive" id="mergulho" data-sc-act="pin" data-sc-span="6" aria-label="Do alto da cidade até a mesa de quem calcula">
+  <section class="dive" id="mergulho" data-sc-act="pin" data-sc-span="6.4" aria-label="Do alto da cidade até a mesa de quem calcula">
     <div data-sc-stage>
       <canvas id="dive" role="img" aria-label="A câmera desce do alto da cidade, atravessa a claraboia de um escritório e para sobre uma linha da sentença"></canvas>
 
@@ -1156,7 +1167,7 @@
         <div class="ent__txt" data-st="0">
           <p class="ent__lab"><b>Ponto Cálculo</b> · o robô do <span class="nw">PJe-Calc</span></p>
           <h2 class="ent__h" id="tEntrada">Antes de descer: <em>qual é a sua pasta?</em></h2>
-          <p class="ent__sub">Escolha a sua. Cada pasta abre a página com a frase da sua mesa.</p>
+          <p class="ent__sub">Cada pasta abre a página com a frase da sua mesa.</p>
         </div>
         <div class="ent__mesa">
           <button class="pasta" type="button" data-escolhe="advogado" aria-label="Sou advogado(a)">
@@ -1187,7 +1198,7 @@
             <span class="pasta__nome">Empresa ou RH</span>
           </button>
         </div>
-        <p class="ent__pe" data-st="0"><button type="button" class="ent__todos" id="entTodos">Ver a página para todos</button></p>
+        <p class="ent__pe" data-st="0"><span class="ent__dica" id="entDica">Escolha uma pasta para descer</span></p>
       </div>
 
       <div class="faixa" data-sc-cue="0 0.16 0 0.35">
@@ -1230,12 +1241,12 @@
         <li><b>1</b><span>passo é seu: aprovar</span></li>
       </ul>
 
-      <div class="st st--br st--mt" data-st="4" data-sc-cue="0.85 1 0.3 0">
+      <div class="st st--br st--mt" data-st="4" data-sc-cue="0.85 1 0.3 0.15">
         <p class="lab">O campo 97</p>
         <h2 class="big">Quem confere <em>e assina</em> é você.</h2>
         <p class="tag">Sem digitar, e com menos risco de erro de digitação.</p>
         <div class="acoes"><a class="btn" href="#lote">Reservar minha vaga <svg aria-hidden="true"><use href="#i-seta"/></svg></a></div>
-        <p class="aba"><svg aria-hidden="true"><use href="#i-ok"/></svg><span>Já roda em diversas empresas, inclusive no grupo empresarial de terminais marítimos e portuários da ABA Infraestrutura e Logística.</span></p>
+        <p class="aba"><svg aria-hidden="true"><use href="#i-ok"/></svg><span>Já roda em diversas empresas, inclusive em terminais marítimos e portuários, posto de combustível e transportadora.</span></p>
       </div>
 
       <div class="alt" aria-hidden="true"><span class="lab">Até o campo 97</span><span class="alt__rule"><i></i></span><span class="alt__n" id="altN">612 m</span></div>
@@ -1253,19 +1264,19 @@
       <div class="pcards" id="pcards">
         <article class="pcard" data-perfil="advogado">
           <p class="lab">Para o advogado</p>
-          <p class="pcard__frase">O valor que você gasta com o contador ou o calculista pode virar receita para o seu escritório.</p>
+          <p class="pcard__frase">O valor que você gasta com o contador ou o calculista <em>pode virar receita</em> para o seu escritório.</p>
           <p class="pcard__sub">O cálculo que você terceirizava passa a ser feito dentro de casa, em minutos, no programa oficial da Justiça do Trabalho.</p>
           <button class="btn btn--line btn--sm pcard__go" type="button" data-escolhe="advogado">Sou advogado(a)</button>
         </article>
         <article class="pcard" data-perfil="calculista">
           <p class="lab">Para o contador e o calculista</p>
-          <p class="pcard__frase">Seu tempo é mais valioso do que você imagina.</p>
+          <p class="pcard__frase">Seu tempo é <em>mais valioso</em> do que você imagina.</p>
           <p class="pcard__sub">O cálculo que você leva de 3 a 4 horas para digitar, a Ponto Cálculo lança em minutos. Mais clientes atendidos no mesmo dia.</p>
           <button class="btn btn--line btn--sm pcard__go" type="button" data-escolhe="calculista">Sou contador(a) ou calculista</button>
         </article>
         <article class="pcard" data-perfil="empresa">
           <p class="lab">Para a empresa e o RH</p>
-          <p class="pcard__frase">O processo acabou. A obrigação no eSocial, não.</p>
+          <p class="pcard__frase">O processo acabou. <em>A obrigação no eSocial, não.</em></p>
           <p class="pcard__sub">Condenações e acordos geram obrigação de declarar. Com a automação dos lançamentos, o cálculo sai do programa oficial em minutos, não em dias, com a planilha do eSocial e a origem de cada número. Quem transmite é a empresa.</p>
           <p class="pcard__alerta"><b>Atenção:</b> uma verba informada errada no eSocial, mesmo depois do acordo homologado ou do cálculo pronto, gera divergência na DCTFWeb e pode resultar em multa, além da cobrança da diferença de contribuição e FGTS, com juros. Cada base da planilha sai do próprio laudo, mês a mês.</p>
           <button class="btn btn--line btn--sm pcard__go" type="button" data-escolhe="empresa">Sou empresa ou RH</button>
@@ -1857,18 +1868,21 @@
         <li><a href="https://termap.com.br/" target="_blank" rel="noopener" title="Termap, Terminal Marítimo de Passageiros de Fortaleza, abrir o site"><img src="assets/logos/termap.webp" width="360" height="102" alt="Termap, Terminal Marítimo de Passageiros de Fortaleza" loading="lazy"></a></li>
       </ul>
       <div class="esc">
-        <p class="esc__t" id="escTit">E escritórios de advocacia trabalhista, que é onde o Ponto Cálculo nasceu.</p>
-        <ul class="logos" id="escLogos" style="--n: 2" aria-label="Escritórios">
+        <p class="esc__t" id="escTit"><b>Escritórios parceiros</b></p>
+        <ul class="logos" id="escLogos" style="--n: 5" aria-label="Escritórios parceiros">
           <li><a href="https://cunhabatistaadv.com/" target="_blank" rel="noopener" title="CB&amp;AA, Cunha, Batista &amp; Advogados Associados, abrir o site"><img src="assets/logos/cbaa.webp" width="175" height="150" alt="CB&amp;AA, Cunha, Batista &amp; Advogados Associados" loading="lazy"></a></li>
           <li><a href="tel:+551338473569" title="Camargo Advocacia e Coworking, (13) 3847-3569"><img src="assets/logos/camargo.webp" width="228" height="150" alt="Camargo Advocacia e Coworking" loading="lazy"></a></li>
+          <li><a href="https://www.mcadv.adv.br/" target="_blank" rel="noopener" title="Márcio Cruz Advocacia, abrir o site"><img src="assets/logos/mcadv.webp" width="520" height="102" alt="Márcio Cruz Advocacia" loading="lazy"></a></li>
+          <li><span title="Alexandre Santos Advocacia, Jataí (GO)"><img src="assets/logos/alexandre.webp" width="440" height="297" alt="Alexandre Santos Advocacia, Jataí (GO)" loading="lazy"></span></li>
+          <li><span title="MGR Advogados e Consultores, Dr. Paulo Magri, Porto Velho (RO)"><img src="assets/logos/mgr.webp" width="408" height="129" alt="MGR Advogados e Consultores, Porto Velho (RO)" loading="lazy"></span></li>
         </ul>
-        <p class="fine" style="margin-top: 12px" id="escNota">A CB&amp;AA contrata o serviço da CB Recovery, detentora da marca Ponto Cálculo. Marcas reproduzidas com autorização de uso assinada, nas proporções e cores originais. Cada logo abre o site da empresa, quando há site publicado; o da Camargo chama o escritório, (13) 3847-3569.</p>
+        <p class="fine" style="margin-top: 12px" id="escNota">A CB&amp;AA contrata o serviço da CB Recovery, detentora da marca Ponto Cálculo. MGR Advogados e Consultores, em Porto Velho (RO). Marcas reproduzidas com autorização de uso assinada, nas proporções e cores originais. Cada logo abre o site da empresa, quando há site publicado; o da Camargo chama o escritório, (13) 3847-3569.</p>
       </div>
     </div>
   </section>
 
   <!-- 19b · DEPOIMENTOS: um trilho lateral, um depoimento por vez (prova social igual para todos os perfis) -->
-  <section class="deps" id="depoimentos" data-sc-act="pan" data-sc-span="3.4" aria-labelledby="tDeps">
+  <section class="deps" id="depoimentos" data-sc-act="pan" data-sc-span="4.4" aria-labelledby="tDeps">
     <div data-sc-stage>
       <div class="rail" data-sc-pan="0.04">
         <div class="rail__head"><h2 class="big big--sm" id="tDeps">O que mudou <em>na mesa deles.</em></h2><p class="head__sub">Depoimentos institucionais, publicados com autorização de uso de marca assinada pelas empresas.</p></div>
@@ -1879,6 +1893,9 @@
           <figure class="depo" role="listitem"><blockquote>O incômodo nunca foi perder: era não saber de quanto antes de sentar à mesa. A margem de segurança do acordo era chute, e o tamanho do erro só aparecia na homologação. Hoje o número que levamos é o mesmo que o juízo confere: propor e homologar deixou de ser dois números diferentes.</blockquote><figcaption><img src="assets/logos/piermaua.webp" width="360" height="107" alt="" loading="lazy"><span><b>Píer Mauá</b><small>Terminal marítimo do Rio de Janeiro</small></span></figcaption></figure>
           <figure class="depo" role="listitem"><blockquote>Trabalhista em volume tem um problema que ninguém confessa: o cálculo que decide o acordo é montado por quem tem menos tempo de casa e conferido pelo sócio às onze da noite, quando já não dá para refazer. Hoje o número chega pronto e a conferência virou o que devia ter sido sempre: ler as premissas, não recalcular a conta.</blockquote><figcaption><img src="assets/logos/cbaa.webp" width="175" height="150" alt="" loading="lazy"><span><b>CB&amp;AA, Cunha, Batista &amp; Advogados Associados</b><small>Advocacia empresarial e trabalhista, Santos</small></span></figcaption></figure>
           <figure class="depo" role="listitem"><blockquote>Liquidação era a parte do trabalho que a gente adiava. Não pela conta em si, mas pelas três horas digitando no PJe-Calc que ninguém paga e que não dá para delegar sem conferir tudo de novo. Hoje a equipe monta e o responsável entra onde importa: confere as premissas e assina.</blockquote><figcaption><img src="assets/logos/camargo.webp" width="228" height="150" alt="" loading="lazy"><span><b>Organizações Camargo</b><small>Advocacia e coworking</small></span></figcaption></figure>
+          <figure class="depo" role="listitem"><blockquote>Cálculo trabalhista era o nosso gargalo de prazo. Hoje o lançamento no PJe-Calc sai em minutos e o tempo da equipe vai para onde importa: a estratégia do caso.</blockquote><figcaption><img src="assets/logos/mcadv.webp" width="520" height="102" alt="" loading="lazy"><span><b>Márcio Cruz Advocacia</b><small>Advocacia trabalhista e desportiva, Santos</small></span></figcaption></figure>
+          <figure class="depo" role="listitem"><blockquote>O cálculo trabalhista tomava a tarde de quem deveria estar atendendo cliente. Hoje o lançamento no PJe-Calc sai em minutos, e a gente confere e protocola no mesmo dia.</blockquote><figcaption><img src="assets/logos/alexandre.webp" width="440" height="297" alt="" loading="lazy"><span><b>Alexandre Santos Advocacia</b><small>Advocacia, Jataí (GO)</small></span></figcaption></figure>
+          <figure class="depo" role="listitem"><blockquote>Na consultoria, o cliente quer saber quanto custa o passivo antes de decidir. Com o Ponto Cálculo, o número sai do programa oficial em minutos, e a resposta vai no mesmo dia.</blockquote><figcaption><img src="assets/logos/mgr.webp" width="408" height="129" alt="" loading="lazy"><span><b>MGR Advogados e Consultores</b><small>Porto Velho (RO) · Dr. Paulo Magri</small></span></figcaption></figure>
         <div class="rail__end"><p class="tag">A próxima mesa pode ser a sua.</p><a class="btn" href="#lote">Reservar minha vaga <svg aria-hidden="true"><use href="#i-seta"/></svg></a></div>
       </div>
     </div>
@@ -2018,21 +2035,24 @@
   // Precos da LP do Lucas (13/10/2026). Mudou um valor, muda aqui: a calculadora acompanha.
   window.PC_PRECO = { avulso: 235, avulsoEso: 285, essencial: 5000, profissional: 5900, escritorioSem: 8000, escritorioCom: 8900, licenca: 25, avulsoMax: 21, terceirizar: 300 };
   // Os 3 escritorios novos (Marcio Cruz, Alexandre Santos, MGR) so aparecem depois da autorizacao de cada um.
-  window.PC_PARCEIROS_NOVOS = false;
 </script>
 <script>
 (function () {
   'use strict';
-  (function () { var dp = document.getElementById('depoimentos'); if (dp && innerWidth < 861) dp.setAttribute('data-sc-span', '5'); })();
-  // a entrada (as tres pastas) so existe para quem chega sem perfil e ainda nao respondeu; ?porta=1 forca, ?porta=0 pula.
+  (function () { var dp = document.getElementById('depoimentos'); if (dp && innerWidth < 861) dp.setAttribute('data-sc-span', '6.5'); })();
+  // a entrada (as tres pastas) existe para quem chega sem perfil no endereco; ?porta=1 forca, ?porta=0 pula.
+  // Nada fica guardado no navegador: cada visita comeca do zero (pedido do Eduardo, 14/10). So o link do anuncio traz o perfil.
   // Ela ocupa o comeco do proprio mergulho: o ato ganha 1,4 tela de rolagem e todas as falas do mergulho andam junto.
   var ENT = (function () {
-    var q = new URLSearchParams(location.search), per = q.get('perfil') || '', salvo = '', visto = false, OK3 = ['advogado', 'calculista', 'empresa'];
-    try { salvo = localStorage.getItem('pc_perfil') || ''; visto = localStorage.getItem('pc_porta') === '1'; } catch (e) {}
-    var conhecido = OK3.indexOf(per) >= 0 || OK3.indexOf(salvo) >= 0;
-    var ativa = q.get('porta') === '1' || (!conhecido && !visto && q.get('porta') !== '0');
+    var q = new URLSearchParams(location.search), per = q.get('perfil') || '', OK3 = ['advogado', 'calculista', 'empresa'];
+    try { localStorage.removeItem('pc_perfil'); localStorage.removeItem('pc_porta'); } catch (e) {}    // apaga o que as versoes anteriores guardaram
+    var ativa = q.get('porta') === '1' || (OK3.indexOf(per) < 0 && q.get('porta') !== '0');
     var el = document.getElementById('entrada'), dive = document.getElementById('mergulho');
-    if (!ativa) { if (el) el.parentNode.removeChild(el); return { ativa: false, pe: 0 }; }
+    if (!ativa) { if (el) el.parentNode.removeChild(el); return { ativa: false, pe: 0, trava: false }; }
+    try { history.scrollRestoration = 'manual'; } catch (e) {}    // sem perfil, recarregar volta ao topo, na pergunta (o navegador nao devolve a rolagem)
+    // sem perfil, a pagina so desce depois que a pessoa escolhe uma pasta: comeca no topo, sem o #secao do endereco
+    var trava = OK3.indexOf(per) < 0;
+    if (trava) { document.documentElement.classList.add('trava'); if (location.hash) try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} scrollTo(0, 0); }
     var span = parseFloat(dive.getAttribute('data-sc-span')) || 6, E = 1.4, pe = E / (span - 1 + E);
     dive.setAttribute('data-sc-span', String(span + E));
     Array.prototype.forEach.call(dive.querySelectorAll('[data-sc-cue]'), function (c) {
@@ -2041,7 +2061,7 @@
       if (n.length > 2 && n[2] === 0) n[2] = .1;
       c.setAttribute('data-sc-cue', n.map(function (v) { return +v.toFixed(4); }).join(' '));
     });
-    return { ativa: true, pe: pe };
+    return { ativa: true, pe: pe, trava: trava };
   })();
   ScrollCraft.mount(document.body);
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -2263,28 +2283,23 @@
     var pc = $('#pcalc'); if (c) { pc.innerHTML = c.calc; pc.hidden = false; } else pc.hidden = true;
     if (!formPerfilTocado) $('#fPerfil').value = c ? c.form : '';
     Dive.dirty();
-    try { localStorage.setItem('pc_perfil', perfil); } catch (e) {}
     if (doUsuario) {
-      try { var u = new URL(location.href); if (perfil) u.searchParams.set('perfil', perfil); else u.searchParams.delete('perfil'); u.searchParams.delete('porta'); history.replaceState(null, '', u); } catch (e) {}
+      // a escolha vale so para esta visita: o endereco fica sem perfil (e sem ?porta), entao recarregar ou reabrir comeca do zero
+      try { var u = new URL(location.href); u.searchParams.delete('perfil'); u.searchParams.delete('porta'); history.replaceState(null, '', u); } catch (e) {}
       Snd.click(); buzz(6);
     }
   }
   $$('.chip[data-perfil]').forEach(function (b) { b.addEventListener('click', function () { aplicaPerfil(b.getAttribute('aria-pressed') === 'true' ? '' : b.dataset.perfil, true); }); });
   $$('.pcard__go').forEach(function (b) { b.addEventListener('click', function () { aplicaPerfil(perfil === b.dataset.escolhe ? '' : b.dataset.escolhe, true); }); });
   $('#fPerfil').addEventListener('change', function () { formPerfilTocado = true; });
-  function marcaVisto() { try { localStorage.setItem('pc_porta', '1'); } catch (e) {} }
-  (function () {
-    var q0 = new URLSearchParams(location.search), ini = q0.get('perfil') || '';
-    if (!PERFIS[ini]) { try { ini = localStorage.getItem('pc_perfil') || ''; } catch (e) { ini = ''; } }
-    if (PERFIS[ini]) aplicaPerfil(ini, false);
-  })();
+  (function () { var ini = new URLSearchParams(location.search).get('perfil') || ''; if (PERFIS[ini]) aplicaPerfil(ini, false); })();
 
   // ---------- 0 · a entrada: tres pastas no ceu; a escolhida abre, mostra a frase e cai na cidade ----------
   var Entrada = (function () {
-    var el = $('#entrada'), nada = { tick: function () {}, escolhe: function () {}, reabre: function () {} };
+    var el = $('#entrada'), nada = { tick: function () {}, escolhe: function () {}, reabre: function () {}, cutuca: function () {} };
     if (!el) return nada;
-    var act = $('#mergulho'), stage = $('#mergulho [data-sc-stage]'), pastas = $$('.pasta', el), txt = $('.ent__txt', el), pe = $('.ent__pe', el), todos = $('#entTodos');
-    var esc = -1, t0 = 0, px = 0, py = 0, tx = 0, ty = 0, hov = -1, avisado = false;
+    var act = $('#mergulho'), stage = $('#mergulho [data-sc-stage]'), pastas = $$('.pasta', el), txt = $('.ent__txt', el), pe = $('.ent__pe', el), dica = $('#entDica');
+    var esc = -1, t0 = 0, px = 0, py = 0, tx = 0, ty = 0, hov = -1, avisado = false, cut = -1e9;
     if (fine && !reduce) addEventListener('pointermove', function (e) { tx = e.clientX / innerWidth - .5; ty = e.clientY / innerHeight - .5; }, { passive: true });
     pastas.forEach(function (b, i) { b.addEventListener('pointerenter', function () { hov = i; }); b.addEventListener('pointerleave', function () { if (hov === i) hov = -1; }); });
     function ease(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
@@ -2298,6 +2313,7 @@
         var x = (i - 1) * gap, y = 0, z = 0, rx = 16, ry = (i - 1) * -14, rz = (i - 1) * 6, s = 1, op = 1, abre = 0, queda = 0;
         if (!reduce) { y += Math.sin(t * 1.25 + i * 2.1) * (mob ? 4 : 8); rz += Math.sin(t * .8 + i * 1.3) * 1.4; ry += px * 12; rx -= py * 8; }
         if (hov === i && esc < 0) { y -= 14; s *= 1.04; rx -= 6; }
+        if (esc < 0 && !reduce) { var kc = clamp((now - cut - i * 70) / 650, 0, 1); if (kc < 1) y -= Math.sin(kc * Math.PI * 2.5) * (1 - kc) * (mob ? 12 : 20); }    // quem tenta descer sem escolher ve as pastas pularem
         if (esc >= 0) {
           if (i === esc) {
             var k = ease(dt / .55);
@@ -2315,12 +2331,47 @@
         b.style.pointerEvents = esc < 0 && op > .5 && p < .22 ? 'auto' : 'none';
       });
       var o = (1 - sstep(.05, .26, p)) * (esc >= 0 ? 1 - ease(dt / .3) : 1);
-      txt.style.opacity = o.toFixed(3); pe.style.opacity = o.toFixed(3); todos.style.pointerEvents = o > .5 ? 'auto' : 'none';
+      txt.style.opacity = o.toFixed(3); pe.style.opacity = o.toFixed(3);
       el.style.visibility = p >= 1 ? 'hidden' : 'visible';
       stage.setAttribute('data-sc-verify-state', 'e' + Math.min(1, p).toFixed(2) + (esc >= 0 ? 'x' + esc : ''));
-      if (p >= 1 && !avisado) { avisado = true; marcaVisto(); }
+      if (p >= 1) avisado = true;
     }
-    return { tick: tick, escolhe: function (i) { esc = i; t0 = performance.now(); pastas.forEach(function (b, j) { b.classList.toggle('is-esc', j === i); }); }, reabre: function () { esc = -1; avisado = false; pastas.forEach(function (b) { b.classList.remove('is-esc'); }); } };
+    return { tick: tick, escolhe: function (i) { esc = i; t0 = performance.now(); pastas.forEach(function (b, j) { b.classList.toggle('is-esc', j === i); }); }, reabre: function () { esc = -1; avisado = false; pastas.forEach(function (b) { b.classList.remove('is-esc'); }); },
+      cutuca: function () { cut = performance.now(); if (dica) { dica.classList.remove('is-cutuca'); void dica.offsetWidth; dica.classList.add('is-cutuca'); } } };
+  })();
+  // ---------- a porta: sem perfil, a pagina nao desce ate escolher uma pasta (pedido do Eduardo, 14/10) ----------
+  // A rolagem fica presa (html.trava) e o resto da pagina fica inerte: nem Tab nem a busca do navegador levam para baixo.
+  // Quem tenta descer ve as pastas pularem e o aviso acender. Zoom do navegador (ctrl + roda, pinca) continua livre.
+  var Trava = (function () {
+    var raiz = document.documentElement, on = false, escolheu = false, ult = 0, inertes = [];
+    function cutuca(e) {
+      if (!on || (e.type === 'wheel' && e.ctrlKey) || (e.touches && e.touches.length > 1)) return;
+      if (e.cancelable) e.preventDefault();
+      var t = performance.now(); if (escolheu || t - ult < 650) return; ult = t;
+      Entrada.cutuca(); buzz(10);
+    }
+    function teclas(e) {
+      if (!on) return;
+      var k = e.key, emBotao = e.target && e.target.closest && e.target.closest('button, a, input, select, textarea');
+      if (k === 'PageDown' || k === 'ArrowDown' || k === 'End' || ((k === ' ' || k === 'Spacebar') && !emBotao)) cutuca(e);
+    }
+    function volta() { if (on && scrollY > 0) scrollTo(0, 0); }
+    function liga() {
+      on = true; raiz.classList.add('trava');
+      inertes = $$('body > *:not(header):not(main):not(script), main > *:not(#mergulho), #mergulho [data-sc-stage] > *:not(#entrada):not(canvas)');
+      inertes.forEach(function (x) { x.inert = true; });
+      addEventListener('wheel', cutuca, { passive: false }); addEventListener('touchmove', cutuca, { passive: false });
+      addEventListener('keydown', teclas); addEventListener('scroll', volta, { passive: true });
+    }
+    function solta() {
+      if (!on) return;
+      on = false; raiz.classList.remove('trava');
+      inertes.forEach(function (x) { x.inert = false; }); inertes = [];
+      removeEventListener('wheel', cutuca, { passive: false }); removeEventListener('touchmove', cutuca, { passive: false });
+      removeEventListener('keydown', teclas); removeEventListener('scroll', volta, { passive: true });
+    }
+    if (ENT.trava) liga();
+    return { escolheu: function () { escolheu = true; }, solta: solta };
   })();
   // a descida automatica anda quadro a quadro: o scroll-behavior suave do motor fica desligado enquanto ela dura
   function rolaAte(y, ms) {
@@ -2333,14 +2384,13 @@
   $$('#entrada .pasta').forEach(function (b, i) {
     b.addEventListener('click', function () {
       if (b.style.pointerEvents === 'none') return;
-      aplicaPerfil(b.dataset.escolhe, true); marcaVisto(); Entrada.escolhe(i); Snd.click(); buzz(8);
-      setTimeout(function () { desce(reduce ? 0 : 1600); }, reduce ? 0 : 1150);
+      aplicaPerfil(b.dataset.escolhe, true); Entrada.escolhe(i); Trava.escolheu(); Snd.click(); buzz(8);
+      setTimeout(function () { Trava.solta(); desce(reduce ? 0 : 1600); }, reduce ? 0 : 1150);
     });
   });
-  if ($('#entTodos')) $('#entTodos').addEventListener('click', function () { aplicaPerfil('', true); marcaVisto(); desce(reduce ? 0 : 1300); });
   $('#vcTrocar').addEventListener('click', function () {
     if (ENT.ativa) { Entrada.reabre(); rolaAte($('#mergulho').offsetTop, reduce ? 0 : 900); }
-    else location.href = location.pathname + '?porta=1';
+    else { var u = new URL(location.href); u.searchParams.delete('perfil'); u.searchParams.set('porta', '1'); location.href = u.href; }    // mantem o utm do anuncio
   });
 
   // ---------- os numeros sobem quando aparecem ----------
@@ -2666,12 +2716,6 @@
   });
 
   // ---------- depoimentos: setas e arrastar ----------
-  if (window.PC_PARCEIROS_NOVOS) {
-    $$('[data-aguarda]').forEach(function (x) { x.removeAttribute('data-aguarda'); });
-    $('#escTit').innerHTML = '<b>Escritórios parceiros</b>';
-    $('#escLogos').style.setProperty('--n', 5);
-    $('#escNota').textContent = 'A CB&AA contrata o serviço da CB Recovery, detentora da marca Ponto Cálculo. MGR Advogados e Consultores, em Porto Velho (RO). Marcas reproduzidas com autorização de uso assinada, nas proporções e cores originais. Cada logo abre o site da empresa, quando há site publicado; o da Camargo chama o escritório, (13) 3847-3569.';
-  }
 
   // ---------- videos com som (o filme e o Caso C): enquanto um toca com som, a musica para ----------
   var VIDS = ['#filmeVid', '#casoC'].map(function (s) { return $(s); }).filter(Boolean);
